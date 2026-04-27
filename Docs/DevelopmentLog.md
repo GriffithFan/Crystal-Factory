@@ -32,6 +32,8 @@ Tema recomendado actual: **Fabrica de Cristales Cosmica**.
 - `Packages/manifest.json` agregado con TextMeshPro, UGUI y soporte VS Code/Visual Studio.
 - `ProjectSettings/ProjectVersion.txt` agregado para que Unity Hub reconozca la carpeta como proyecto.
 - Version del proyecto ajustada a Unity `6000.4.4f1`, que es la version instalada detectada en Unity Hub.
+- Se agrego un wrapper global `JsonUtility` para evitar errores de resolucion durante compilacion en Unity 6 Safe Mode.
+- Se retiro `com.unity.textmeshpro` del manifest porque Unity 6 integra TextMeshPro dentro de `com.unity.ugui`.
 - Documentacion en `Docs/`.
 - Catalogos JSON en `Assets/Resources/GameData/`.
 
