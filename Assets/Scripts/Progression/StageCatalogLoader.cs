@@ -14,7 +14,7 @@ public class StageCatalogLoader : MonoBehaviour
             return new StageDefinition[0];
         }
 
-        StageCatalog catalog = JsonUtility.FromJson<StageCatalog>(catalogAsset.text);
+        StageCatalog catalog = UnityEngine.JsonUtility.FromJson<StageCatalog>(catalogAsset.text);
         return catalog?.stages ?? new StageDefinition[0];
     }
 }

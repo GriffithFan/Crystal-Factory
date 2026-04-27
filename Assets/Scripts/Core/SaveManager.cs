@@ -19,7 +19,7 @@ public class SaveManager : MonoBehaviour
 
         try
         {
-            GameState state = JsonUtility.FromJson<GameState>(json);
+            GameState state = UnityEngine.JsonUtility.FromJson<GameState>(json);
             return state ?? new GameState();
         }
         catch (Exception exception)
@@ -32,7 +32,7 @@ public class SaveManager : MonoBehaviour
     public void Save(GameState state)
     {
         state.lastSavedUtc = DateTime.UtcNow.ToString("O", CultureInfo.InvariantCulture);
-        string json = JsonUtility.ToJson(state);
+        string json = UnityEngine.JsonUtility.ToJson(state);
         PlayerPrefs.SetString(SaveKey, json);
         PlayerPrefs.Save();
     }

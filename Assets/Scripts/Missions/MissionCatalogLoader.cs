@@ -14,7 +14,7 @@ public class MissionCatalogLoader : MonoBehaviour
             return new MissionDefinition[0];
         }
 
-        MissionCatalog catalog = JsonUtility.FromJson<MissionCatalog>(catalogAsset.text);
+        MissionCatalog catalog = UnityEngine.JsonUtility.FromJson<MissionCatalog>(catalogAsset.text);
         return catalog?.missions ?? new MissionDefinition[0];
     }
 }
