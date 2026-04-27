@@ -27,6 +27,7 @@ Crear un MVP monetizable de forma sostenible:
 - `Docs/GitCommands.md`: comandos Git utiles para el proyecto.
 - `Docs/DevelopmentLog.md`: registro vivo de progreso y contexto.
 - `Docs/ArtAndLoreDirection.md`: guia visual, lore y prompts IA.
+- `Docs/AIPrompts.md`: prompts listos para generar imagenes IA del juego.
 - `Assets/Resources/GameData/UpgradeCatalog.json`: economia inicial editable.
 - `Assets/Resources/GameData/MissionCatalog.json`: misiones iniciales editables.
 - `Assets/Resources/GameData/StageCatalog.json`: etapas narrativas y paleta visual.
@@ -54,3 +55,7 @@ Usar GitHub como punto central del proyecto:
 2. Probar escenas, prefabs y assets desde Unity.
 3. Subir avances a GitHub con commits frecuentes.
 4. Volver a VS Code para que el agente trabaje siempre sobre el repo actualizado.
+
+## Vista recomendada en Unity
+
+El juego esta pensado para movil vertical. En la pestaña `Game`, usa un aspect ratio vertical como `9:16`, `1080x1920` o `Portrait` para revisar la UI correctamente.

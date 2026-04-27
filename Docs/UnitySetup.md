@@ -30,6 +30,10 @@ Esto crea:
 
 Despues presiona Play y prueba el loop principal.
 
+Importante: el prototipo esta disenado para movil vertical. En la pestaña `Game`, cambia el aspect ratio a `9:16`, `1080x1920` o cualquier preset portrait antes de evaluar la composicion.
+
+Si ya habias generado la escena y luego se actualizo el generador, vuelve a ejecutar `Tools > Cosmic Crystal Factory > Create Prototype Scene` para reconstruirla con el nuevo layout.
+
 ## 2. GameManager
 
 Crea un GameObject vacio llamado `GameManager` y agrega estos componentes:
@@ -133,3 +137,11 @@ El contexto vivo del desarrollo queda en:
 `Docs/DevelopmentLog.md`
 
 Actualizalo cada vez que se agregue un sistema importante, se pruebe algo en Unity o se tome una decision de producto.
+
+## 9. Imagenes generadas por IA
+
+Los prompts listos para generar assets estan en:
+
+`Docs/AIPrompts.md`
+
+Guarda los PNG generados dentro de `Assets/Art/` y configuralos como `Sprite (2D and UI)` desde el Inspector.

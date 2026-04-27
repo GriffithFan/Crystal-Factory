@@ -68,6 +68,7 @@ Tema recomendado actual: **Fabrica de Cristales Cosmica**.
 - `CrystalPulseController`: pulso del cristal al tocar.
 - `FloatingTextSpawner`: texto flotante para clicks y recompensas.
 - `AmbientPulseController`: pulso suave de energia en el fondo.
+- `CrystalGraphic`: dibuja una gema UI procedural para que el boton principal no sea una barra rectangular.
 
 ### Datos configurables
 
@@ -84,10 +85,12 @@ Tema recomendado actual: **Fabrica de Cristales Cosmica**.
 - Crea Canvas, HUD, botones, tienda y panel de misiones.
 - Crea prefabs UI iniciales para upgrades y misiones.
 - Crea fondo dinamico, texto de lore, pulso de cristal y texto flotante.
+- Generador actualizado a layout mobile-first con marco 9:16, camara y paneles apilados.
 
 ### Direccion visual/lore
 
 - `Docs/ArtAndLoreDirection.md` creado.
+- `Docs/AIPrompts.md` creado con prompts para fondos, cristal, mascota, iconos, cofres y material de Google Play.
 - Carpetas `Assets/Art/` y `Assets/Audio/` preparadas.
 - Prompts IA definidos para cristal, fondos e iconos.
 
