@@ -27,33 +27,35 @@ public static class PrototypeSceneBuilder
 
         Canvas canvas = CreateCanvas();
         Image backgroundImage = CreateBackground(canvas.transform);
+        CreateAmbientGlow("TopAmbientGlow", canvas.transform, new Vector2(-0.18f, 0.7f), new Vector2(0.82f, 1.16f), new Color(0.1f, 0.7f, 1f, 0.18f));
+        CreateAmbientGlow("BottomAmbientGlow", canvas.transform, new Vector2(0.12f, -0.12f), new Vector2(1.18f, 0.36f), new Color(0.45f, 0.14f, 0.9f, 0.12f));
         Image energyBandImage = CreateEnergyBand(canvas.transform);
         GameObject phoneRoot = CreatePhoneRoot(canvas.transform);
         GameObject mainLayout = CreateMainLayout(phoneRoot.transform);
 
-        TMP_Text titleText = CreateText("GameTitleText", mainLayout.transform, "CRYSTAL FACTORY", 42, 70, TextAlignmentOptions.Center);
+        TMP_Text titleText = CreateText("GameTitleText", mainLayout.transform, "CRYSTAL FACTORY", 54, 64, TextAlignmentOptions.Center);
         titleText.color = new Color(0.72f, 0.96f, 1f);
-        TMP_Text stageTitleText = CreateText("StageTitleText", mainLayout.transform, "Fragmento Dormido", 27, 48, TextAlignmentOptions.Center);
-        TMP_Text loreText = CreateText("LoreText", mainLayout.transform, "Un cristal apagado aparece en una mesa olvidada. Cada toque despierta una vibracion antigua bajo el laboratorio.", 19, 92, TextAlignmentOptions.Center);
+        TMP_Text stageTitleText = CreateText("StageTitleText", mainLayout.transform, "Fragmento Dormido", 30, 38, TextAlignmentOptions.Center);
+        TMP_Text loreText = CreateText("LoreText", mainLayout.transform, "Un cristal apagado aparece en una mesa olvidada. Cada toque despierta una vibracion antigua bajo el laboratorio.", 22, 62, TextAlignmentOptions.Center);
         loreText.color = new Color(0.85f, 0.9f, 0.96f);
-        TMP_Text coinsText = CreateText("CoinsText", mainLayout.transform, "0", 58, 86, TextAlignmentOptions.Center);
-        TMP_Text cpsText = CreateText("CoinsPerSecondText", mainLayout.transform, "0/s", 24, 38, TextAlignmentOptions.Center);
-        TMP_Text clickPowerText = CreateText("ClickPowerText", mainLayout.transform, "+1 por toque", 20, 34, TextAlignmentOptions.Center);
+        TMP_Text coinsText = CreateText("CoinsText", mainLayout.transform, "0", 72, 76, TextAlignmentOptions.Center);
+        TMP_Text cpsText = CreateText("CoinsPerSecondText", mainLayout.transform, "0/s", 26, 30, TextAlignmentOptions.Center);
+        TMP_Text clickPowerText = CreateText("ClickPowerText", mainLayout.transform, "+1 por toque", 21, 28, TextAlignmentOptions.Center);
 
         Button crystalButton = CreateCrystalButton(mainLayout.transform);
-        TMP_Text statusText = CreateText("StatusText", mainLayout.transform, "Toca el cristal para comenzar", 18, 52, TextAlignmentOptions.Center);
+        TMP_Text statusText = CreateText("StatusText", mainLayout.transform, "Toca el cristal para comenzar", 20, 40, TextAlignmentOptions.Center);
         statusText.color = new Color(0.72f, 0.83f, 0.9f);
 
-        GameObject actionRow = CreateHorizontalGroup("ActionRow", mainLayout.transform, 96);
-        Button dailyRewardButton = CreateButton("DailyRewardButton", actionRow.transform, "Diaria", new Color(0.95f, 0.72f, 0.18f), 22, 96);
-        Button rewardedAdButton = CreateButton("RewardedAdButton", actionRow.transform, "Boost", new Color(0.42f, 0.82f, 0.28f), 22, 96);
+        GameObject actionRow = CreateHorizontalGroup("ActionRow", mainLayout.transform, 82);
+        Button dailyRewardButton = CreateButton("DailyRewardButton", actionRow.transform, "Diaria", new Color(0.35f, 0.24f, 0.07f), 24, 82);
+        Button rewardedAdButton = CreateButton("RewardedAdButton", actionRow.transform, "Boost", new Color(0.08f, 0.28f, 0.2f), 24, 82);
 
-        GameObject listsColumn = CreateVerticalGroup("ListsColumn", mainLayout.transform, 650, 14);
-        GameObject shopPanel = CreatePanel("ShopPanel", listsColumn.transform, "MEJORAS", 350);
-        Transform shopContent = CreateScrollContent(shopPanel.transform, "ShopScrollView", 276);
+        GameObject listsColumn = CreateVerticalGroup("ListsColumn", mainLayout.transform, 770, 12);
+        GameObject shopPanel = CreatePanel("ShopPanel", listsColumn.transform, "MEJORAS", 430);
+        Transform shopContent = CreateScrollContent(shopPanel.transform, "ShopScrollView", 356);
 
-        GameObject missionsPanel = CreatePanel("MissionsPanel", listsColumn.transform, "MISIONES", 286);
-        Transform missionsContent = CreateScrollContent(missionsPanel.transform, "MissionsScrollView", 212);
+        GameObject missionsPanel = CreatePanel("MissionsPanel", listsColumn.transform, "MISIONES", 328);
+        Transform missionsContent = CreateScrollContent(missionsPanel.transform, "MissionsScrollView", 254);
 
         UpgradeButtonView upgradePrefab = CreateUpgradeButtonPrefab();
         MissionRowView missionPrefab = CreateMissionRowPrefab();
@@ -182,6 +184,16 @@ public static class PrototypeSceneBuilder
         return image;
     }
 
+    private static void CreateAmbientGlow(string name, Transform parent, Vector2 anchorMin, Vector2 anchorMax, Color centerColor)
+    {
+        GameObject glowObject = CreateEllipse(name, parent, centerColor, new Color(centerColor.r, centerColor.g, centerColor.b, 0f));
+        RectTransform rect = glowObject.GetComponent<RectTransform>();
+        rect.anchorMin = anchorMin;
+        rect.anchorMax = anchorMax;
+        rect.offsetMin = Vector2.zero;
+        rect.offsetMax = Vector2.zero;
+    }
+
     private static GameObject CreatePhoneRoot(Transform parent)
     {
         GameObject phoneRoot = new GameObject("PhoneRoot_9x16");
@@ -212,7 +224,7 @@ public static class PrototypeSceneBuilder
         rect.offsetMax = new Vector2(-42, -36);
 
         VerticalLayoutGroup layout = layoutObject.AddComponent<VerticalLayoutGroup>();
-        layout.spacing = 12;
+        layout.spacing = 9;
         layout.childAlignment = TextAnchor.UpperCenter;
         layout.childControlHeight = false;
         layout.childControlWidth = true;
@@ -263,35 +275,59 @@ public static class PrototypeSceneBuilder
         GameObject buttonObject = new GameObject("CrystalButton");
         buttonObject.transform.SetParent(parent, false);
         RectTransform rect = buttonObject.AddComponent<RectTransform>();
-        rect.sizeDelta = new Vector2(0, 300);
-        AddLayoutElement(buttonObject, 300);
+        rect.sizeDelta = new Vector2(0, 440);
+        AddLayoutElement(buttonObject, 440);
 
         Button button = buttonObject.AddComponent<Button>();
         CrystalPulseController pulse = buttonObject.AddComponent<CrystalPulseController>();
 
-        GameObject glowObject = new GameObject("CrystalGlow");
-        glowObject.transform.SetParent(buttonObject.transform, false);
-        Image glow = glowObject.AddComponent<Image>();
-        glow.color = new Color(0.1f, 0.75f, 1f, 0.14f);
-        glowObject.AddComponent<AmbientPulseController>();
-        RectTransform glowRect = glowObject.GetComponent<RectTransform>();
-        glowRect.anchorMin = new Vector2(0.16f, 0.02f);
-        glowRect.anchorMax = new Vector2(0.84f, 0.98f);
-        glowRect.offsetMin = Vector2.zero;
-        glowRect.offsetMax = Vector2.zero;
+        GameObject outerGlowObject = CreateEllipse("OuterCrystalGlow", buttonObject.transform, new Color(0.13f, 0.86f, 1f, 0.32f), new Color(0.02f, 0.12f, 0.28f, 0f));
+        RectTransform outerGlowRect = outerGlowObject.GetComponent<RectTransform>();
+        outerGlowRect.anchorMin = new Vector2(0.04f, 0.03f);
+        outerGlowRect.anchorMax = new Vector2(0.96f, 0.97f);
+
+        GameObject innerGlowObject = CreateEllipse("InnerCrystalGlow", buttonObject.transform, new Color(0.8f, 1f, 1f, 0.42f), new Color(0.05f, 0.5f, 0.9f, 0f));
+        RectTransform innerGlowRect = innerGlowObject.GetComponent<RectTransform>();
+        innerGlowRect.anchorMin = new Vector2(0.16f, 0.12f);
+        innerGlowRect.anchorMax = new Vector2(0.84f, 0.88f);
+
+        GameObject pedestalObject = new GameObject("CrystalPedestal");
+        pedestalObject.transform.SetParent(buttonObject.transform, false);
+        Image pedestal = pedestalObject.AddComponent<Image>();
+        pedestal.color = new Color(0.08f, 0.2f, 0.3f, 0.88f);
+        RectTransform pedestalRect = pedestalObject.GetComponent<RectTransform>();
+        pedestalRect.anchorMin = new Vector2(0.3f, 0.04f);
+        pedestalRect.anchorMax = new Vector2(0.7f, 0.14f);
+        pedestalRect.offsetMin = Vector2.zero;
+        pedestalRect.offsetMax = Vector2.zero;
 
         GameObject crystalObject = new GameObject("CrystalGem");
         crystalObject.transform.SetParent(buttonObject.transform, false);
         CrystalGraphic crystal = crystalObject.AddComponent<CrystalGraphic>();
         RectTransform crystalRect = crystalObject.GetComponent<RectTransform>();
-        crystalRect.anchorMin = new Vector2(0.24f, 0.08f);
-        crystalRect.anchorMax = new Vector2(0.76f, 0.92f);
+        crystalRect.anchorMin = new Vector2(0.28f, 0.12f);
+        crystalRect.anchorMax = new Vector2(0.72f, 0.9f);
         crystalRect.offsetMin = Vector2.zero;
         crystalRect.offsetMax = Vector2.zero;
 
         button.targetGraphic = crystal;
         SetObjectReference(pulse, "target", crystalObject.transform);
         return button;
+    }
+
+    private static GameObject CreateEllipse(string name, Transform parent, Color centerColor, Color edgeColor)
+    {
+        GameObject ellipseObject = new GameObject(name);
+        ellipseObject.transform.SetParent(parent, false);
+        SoftEllipseGraphic ellipse = ellipseObject.AddComponent<SoftEllipseGraphic>();
+        SetColorReference(ellipse, "centerColor", centerColor);
+        SetColorReference(ellipse, "edgeColor", edgeColor);
+        ellipseObject.AddComponent<AmbientPulseController>();
+
+        RectTransform rect = ellipseObject.GetComponent<RectTransform>();
+        rect.offsetMin = Vector2.zero;
+        rect.offsetMax = Vector2.zero;
+        return ellipseObject;
     }
 
     private static GameObject CreatePanel(string name, Transform parent, string title, float height)
@@ -509,6 +545,21 @@ public static class PrototypeSceneBuilder
         }
 
         property.objectReferenceValue = value;
+        serializedObject.ApplyModifiedPropertiesWithoutUndo();
+    }
+
+    private static void SetColorReference(Object target, string propertyName, Color value)
+    {
+        SerializedObject serializedObject = new SerializedObject(target);
+        SerializedProperty property = serializedObject.FindProperty(propertyName);
+
+        if (property == null)
+        {
+            Debug.LogWarning($"Property {propertyName} not found on {target.name}");
+            return;
+        }
+
+        property.colorValue = value;
         serializedObject.ApplyModifiedPropertiesWithoutUndo();
     }
 }

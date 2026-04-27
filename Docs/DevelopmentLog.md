@@ -69,6 +69,7 @@ Tema recomendado actual: **Fabrica de Cristales Cosmica**.
 - `FloatingTextSpawner`: texto flotante para clicks y recompensas.
 - `AmbientPulseController`: pulso suave de energia en el fondo.
 - `CrystalGraphic`: dibuja una gema UI procedural para que el boton principal no sea una barra rectangular.
+- `SoftEllipseGraphic`: dibuja halos procedurales para fondo y cristal sin depender todavia de sprites externos.
 
 ### Datos configurables
 
@@ -86,6 +87,7 @@ Tema recomendado actual: **Fabrica de Cristales Cosmica**.
 - Crea prefabs UI iniciales para upgrades y misiones.
 - Crea fondo dinamico, texto de lore, pulso de cristal y texto flotante.
 - Generador actualizado a layout mobile-first con marco 9:16, camara y paneles apilados.
+- Ajustadas proporciones del prototipo: cristal mas grande, halos no rectangulares, botones menos saturados y mejor uso del alto vertical.
 
 ### Direccion visual/lore
 
