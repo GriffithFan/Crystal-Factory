@@ -31,6 +31,7 @@ Tema recomendado actual: **Fabrica de Cristales Cosmica**.
 - Estructura `Assets/` compatible con Unity.
 - `Packages/manifest.json` agregado con TextMeshPro, UGUI y soporte VS Code/Visual Studio.
 - `ProjectSettings/ProjectVersion.txt` agregado para que Unity Hub reconozca la carpeta como proyecto.
+- Version del proyecto ajustada a Unity `6000.4.4f1`, que es la version instalada detectada en Unity Hub.
 - Documentacion en `Docs/`.
 - Catalogos JSON en `Assets/Resources/GameData/`.
 

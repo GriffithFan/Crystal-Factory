@@ -5,9 +5,9 @@ Este workspace ya contiene una base de scripts para el MVP de **Fabrica de Crist
 ## 1. Crear el proyecto
 
 1. Abre Unity Hub.
-2. Crea un proyecto nuevo con plantilla **2D Core**.
-3. Usa como carpeta del proyecto `c:\Users\ulise\Documents\JUEGO` o copia la carpeta `Assets` dentro del proyecto Unity si Unity no permite abrir esta carpeta directamente.
-4. Abre la escena principal o crea una escena llamada `Game`.
+2. Usa **Add project from disk** y selecciona `c:\Users\ulise\Documents\JUEGO`.
+3. Abre el proyecto con Unity `6000.4.4f1` o con la version instalada que tengas disponible.
+4. Si Unity avisa que va a actualizar el proyecto a tu version instalada, acepta.
 
 ## 1.1. Crear escena automaticamente
 
