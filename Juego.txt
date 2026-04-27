@@ -1,0 +1,1077 @@
+========================================
+PROYECTO: JUEGO MOBILE CON MICROTRANSACCIONES
+PLATAFORMA: ANDROID
+ENGINE: UNITY 2D
+MODELO DE INGRESOS: ADS + IAP
+VERSION DEL DOCUMENTO: 2.0
+FECHA: 27/04/2026
+========================================
+
+========================================
+0. RESUMEN EJECUTIVO
+========================================
+
+OBJETIVO:
+Crear un juego mobile simple, publicable y escalable, enfocado en retencion, progresion constante y monetizacion mediante anuncios recompensados, compras opcionales y eliminacion de anuncios.
+
+TIPO DE JUEGO RECOMENDADO:
+- Idle Clicker / Incremental 2D.
+- Sesiones cortas de 30 segundos a 5 minutos.
+- Progreso offline.
+- Recompensas diarias.
+- Eventos temporales sencillos.
+
+PRIORIDAD DEL PROYECTO:
+1. Lanzar un MVP funcional.
+2. Medir retencion y comportamiento real.
+3. Ajustar economia y monetizacion.
+4. Agregar contenido visual, eventos y progresion.
+
+PRINCIPIO CLAVE:
+No intentar crear el juego mas grande desde el inicio. Crear un producto pequeno, entendible, pulido y medible.
+
+========================================
+1. CONCEPTO DEL JUEGO
+========================================
+
+IDEA BASE:
+Un juego incremental donde el jugador toca un elemento principal para generar monedas, compra mejoras, desbloquea generadores automaticos y avanza por etapas visuales cada vez mas llamativas.
+
+CONCEPTO TEMATICO RECOMENDADO:
+"Fabrica de Cristales Cosmica"
+
+El jugador empieza tocando un pequeno cristal en una mesa de laboratorio. Con cada mejora, la fabrica evoluciona: herramientas, maquinas, robots, portales, planetas y tecnologia cosmica.
+
+POR QUE ESTA TEMATICA FUNCIONA:
+- Permite progresion visual clara.
+- Facilita imagenes generadas por IA.
+- Funciona bien en 2D.
+- No depende de personajes complejos.
+- Puede tener colores brillantes y efectos satisfactorios.
+- Escala bien con upgrades: cristal, maquina, robot, fabrica, planeta, galaxia.
+
+OTRAS TEMATICAS POSIBLES:
+- Tienda de pociones magicas.
+- Granja de slimes.
+- Restaurante espacial.
+- Mina de gemas.
+- Fabrica de dulces.
+- Laboratorio de criaturas.
+
+RECOMENDACION:
+Elegir una tematica visualmente fuerte y facil de producir. Para un primer juego, "Fabrica de Cristales Cosmica" es buena porque requiere pocos personajes y permite muchos objetos/maquinas generados por IA.
+
+========================================
+2. PUBLICO OBJETIVO
+========================================
+
+USUARIOS PRINCIPALES:
+- Jugadores casuales de Android.
+- Personas que juegan en descansos cortos.
+- Usuarios que disfrutan progreso numerico, desbloqueos y recompensas.
+
+EDAD OBJETIVO:
+- 13+ recomendado.
+
+SESIONES ESPERADAS:
+- Cortas, repetibles y frecuentes.
+- 3 a 10 sesiones por dia en usuarios retenidos.
+
+OBJETIVOS DEL JUGADOR:
+- Ver numeros crecer.
+- Desbloquear nuevas mejoras.
+- Recibir recompensas constantes.
+- Sentir que cada regreso al juego vale la pena.
+
+========================================
+3. STACK TECNOLOGICO
+========================================
+
+ENGINE:
+- Unity 2D Core.
+
+LENGUAJE:
+- C#.
+
+VERSION RECOMENDADA:
+- Unity LTS reciente.
+
+BACKEND:
+- MVP: sin backend obligatorio.
+- Recomendado despues del MVP: Firebase.
+
+SERVICIOS:
+- Firebase Analytics: metricas y eventos.
+- Firebase Remote Config: balancear economia sin actualizar app.
+- Firebase Crashlytics: errores y cierres inesperados.
+- Google Play Billing: compras dentro de la app.
+- AdMob o Unity LevelPlay: anuncios.
+
+CONTROL DE VERSIONES:
+- Git.
+- Repositorio privado en GitHub.
+
+GESTION DE TAREAS:
+- Trello, Notion, GitHub Projects o un archivo TODO.md.
+
+========================================
+4. ESTRUCTURA DEL PROYECTO UNITY
+========================================
+
+Assets/
+|
++-- Art/
+|   +-- Backgrounds/
+|   +-- Icons/
+|   +-- Characters/
+|   +-- Machines/
+|   +-- UI/
+|
++-- Audio/
+|   +-- Music/
+|   +-- SFX/
+|
++-- Materials/
++-- Prefabs/
+|   +-- UI/
+|   +-- Effects/
+|   +-- Upgrades/
+|
++-- Resources/
++-- Scenes/
+|   +-- Boot.unity
+|   +-- MainMenu.unity
+|   +-- Game.unity
+|
++-- Scripts/
+|   +-- Core/
+|   |   +-- GameManager.cs
+|   |   +-- SaveManager.cs
+|   |   +-- TimeManager.cs
+|   |
+|   +-- Economy/
+|   |   +-- CurrencySystem.cs
+|   |   +-- UpgradeSystem.cs
+|   |   +-- OfflineProgressSystem.cs
+|   |
+|   +-- Monetization/
+|   |   +-- AdsManager.cs
+|   |   +-- IAPManager.cs
+|   |
+|   +-- UI/
+|   |   +-- HUDController.cs
+|   |   +-- ShopController.cs
+|   |   +-- PopupController.cs
+|   |
+|   +-- Analytics/
+|   |   +-- AnalyticsManager.cs
+|   |
+|   +-- Config/
+|       +-- GameConfig.cs
+|
++-- ScriptableObjects/
+|   +-- Upgrades/
+|   +-- Products/
+|   +-- Balance/
+|
++-- Settings/
++-- StreamingAssets/
+
+RECOMENDACION:
+Usar ScriptableObjects para upgrades, productos, precios y parametros de balance. Esto permite ajustar el juego sin tocar demasiado codigo.
+
+========================================
+5. CORE LOOP
+========================================
+
+LOOP PRINCIPAL:
+1. El jugador toca el cristal central.
+2. Gana monedas.
+3. Compra mejoras.
+4. Aumenta monedas por toque o monedas por segundo.
+5. Desbloquea nuevas maquinas/zonas.
+6. Recibe recompensas offline al volver.
+7. Mira anuncios recompensados si quiere acelerar progreso.
+8. Repite con metas mas grandes.
+
+LOOP DE 30 SEGUNDOS:
+- Tocar.
+- Comprar una mejora barata.
+- Ver efecto visual inmediato.
+- Ver que el contador sube mas rapido.
+
+LOOP DE 5 MINUTOS:
+- Ahorrar para una mejora importante.
+- Desbloquear una nueva maquina.
+- Reclamar recompensa diaria o anuncio recompensado.
+
+LOOP DE 24 HORAS:
+- Entrar por recompensa diaria.
+- Reclamar progreso offline.
+- Revisar evento o mision diaria.
+
+========================================
+6. SISTEMAS PRINCIPALES
+========================================
+
+[1] SISTEMA DE MONEDA
+- Moneda principal: Cristales.
+- Variable base: coins.
+- Mostrar con formato compacto: 1K, 1M, 1B.
+- Usar double o decimal si los numeros crecen mucho.
+
+[2] SISTEMA DE TOQUE
+- Cada toque genera monedas.
+- Puede tener multiplicadores temporales.
+- Debe sentirse satisfactorio: particulas, sonido, vibracion ligera.
+
+[3] SISTEMA DE MEJORAS
+- Mejoras de click: aumentan monedas por toque.
+- Mejoras idle: aumentan monedas por segundo.
+- Mejoras visuales: cambian el escenario o maquina.
+- Mejoras premium opcionales: aceleran, pero no bloquean el progreso basico.
+
+[4] SISTEMA IDLE
+- Genera monedas automaticamente.
+- Se calcula cada segundo.
+- Mostrar monedas por segundo en la UI.
+
+[5] PROGRESO OFFLINE
+- Guardar hora de salida.
+- Al volver, calcular tiempo transcurrido.
+- Dar recompensa offline con limite recomendado de 8 a 12 horas.
+- Opcion: duplicar recompensa viendo anuncio.
+
+[6] SISTEMA DE GUARDADO
+- MVP: PlayerPrefs para prototipo.
+- Version publicable: JSON local con versionado.
+- Si hay compras reales, validar recibos con Google Play cuando sea posible.
+
+[7] SISTEMA DE PRESTIGIO
+- Se desbloquea cuando el jugador alcanza una meta alta.
+- Reinicia progreso principal.
+- Da moneda especial permanente.
+- Aumenta produccion global.
+
+NOMBRE SUGERIDO:
+- Polvo Estelar.
+
+[8] SISTEMA DE MISIONES
+- Misiones diarias:
+    - Toca 500 veces.
+    - Compra 10 mejoras.
+    - Reclama 3 recompensas.
+    - Gana X cristales.
+
+- Recompensas:
+    - Monedas.
+    - Multiplicador temporal.
+    - Cofre comun.
+
+[9] SISTEMA DE COFRES
+- Cofre comun: monedas, boost pequeno.
+- Cofre raro: multiplicador, moneda de prestigio pequena.
+- Cofre evento: cosmeticos o fondos.
+
+IMPORTANTE:
+Si se usan mecanicas tipo cofre aleatorio, revisar politicas de Google Play sobre probabilidades y compras.
+
+========================================
+7. ECONOMIA DEL JUEGO
+========================================
+
+VARIABLES PRINCIPALES:
+- coins: moneda actual.
+- totalCoinsEarned: total historico.
+- clickPower: monedas por toque.
+- coinsPerSecond: produccion automatica.
+- prestigeCurrency: moneda permanente.
+- multiplier: multiplicador global.
+
+FORMULA SIMPLE DE COSTO DE UPGRADE:
+costo = costoBase * pow(crecimiento, nivel)
+
+EJEMPLO:
+- costoBase = 10
+- crecimiento = 1.15
+- nivel = nivel actual del upgrade
+
+FORMULA DE PRODUCCION:
+produccion = produccionBase * nivel * multiplicadorGlobal
+
+BALANCE INICIAL RECOMENDADO:
+- Primer upgrade disponible en menos de 20 segundos.
+- Segundo upgrade en menos de 1 minuto.
+- Primer generador automatico antes de 2 minutos.
+- Primera recompensa offline visible en la primera vuelta del jugador.
+- Primer prestigio entre 45 y 90 minutos acumulados, no necesariamente en una sola sesion.
+
+CURVA DE PROGRESION:
+- Inicio rapido.
+- Medio con decisiones: click vs idle.
+- Tarde con prestigio y multiplicadores.
+
+RIESGO:
+Si el progreso se vuelve demasiado lento, el jugador abandona. Si es demasiado rapido, se queda sin objetivos. El balance se debe ajustar con datos reales.
+
+========================================
+8. MONETIZACION RESPONSABLE
+========================================
+
+OBJETIVO:
+Generar ingresos sin destruir la experiencia. La monetizacion debe sentirse opcional, clara y justa.
+
+[ADS]
+
+TIPOS RECOMENDADOS:
+- Rewarded Ads: prioridad maxima.
+- Interstitial Ads: usar con mucho cuidado.
+- Banner Ads: opcional, no recomendado si ensucia la UI.
+
+REWARDED ADS:
+- Duplicar recompensa offline.
+- Dar monedas extra.
+- Activar multiplicador x2 por 5 minutos.
+- Abrir cofre adicional.
+
+INTERSTITIAL ADS:
+- No mostrar en los primeros 3 a 5 minutos.
+- No mostrar despues de cada toque o accion frecuente.
+- Mostrar solo al cambiar de pantalla o tras completar una meta.
+- Frecuencia recomendada inicial: maximo 1 cada 3 a 5 minutos.
+
+[IAP]
+
+PRODUCTOS RECOMENDADOS:
+- Pack pequeno de cristales.
+- Pack mediano de cristales.
+- Pack grande de cristales.
+- Remove Ads.
+- Starter Pack.
+- Multiplicador permanente ligero.
+
+PRECIOS SUGERIDOS INICIALES:
+- Pack pequeno: USD 0.99
+- Pack mediano: USD 2.99
+- Pack grande: USD 4.99 o 9.99
+- Remove Ads: USD 2.99
+- Starter Pack: USD 1.99
+
+RECOMENDACION:
+El producto mas importante suele ser Remove Ads. Debe eliminar interstitials y banners, pero puede mantener rewarded ads si el jugador elige verlos voluntariamente.
+
+EVITAR:
+- Pagar para desbloquear funciones basicas.
+- Interrumpir constantemente con anuncios.
+- Hacer que el juego sea insoportable sin pagar.
+- Ofertas confusas.
+
+========================================
+9. UI / UX
+========================================
+
+PANTALLA PRINCIPAL:
+- Contador grande de cristales.
+- Indicador de cristales por segundo.
+- Cristal central tocable.
+- Boton de tienda.
+- Boton de misiones.
+- Boton de recompensa diaria.
+- Boton de anuncio recompensado.
+- Acceso a ajustes.
+
+TIENDA:
+- Lista de upgrades.
+- Nombre del upgrade.
+- Nivel actual.
+- Costo.
+- Beneficio claro.
+- Estado: comprable / no comprable.
+
+POPUPS IMPORTANTES:
+- Recompensa offline.
+- Recompensa diaria.
+- Confirmacion de compra IAP.
+- Error de compra.
+- Sin internet.
+
+SENSACION AL JUGAR:
+- Numeros flotantes al tocar.
+- Pequenos flashes o particulas.
+- Sonido corto y agradable por toque.
+- Vibracion ligera opcional.
+- Animacion de mejora comprada.
+
+ACCESIBILIDAD:
+- Texto legible en pantallas pequenas.
+- Botones grandes.
+- Contraste suficiente.
+- Opcion para desactivar vibracion y sonido.
+
+========================================
+10. DIRECCION VISUAL
+========================================
+
+ESTILO RECOMENDADO:
+- 2D colorido.
+- Objetos claros y reconocibles.
+- Fondos con profundidad ligera.
+- UI limpia, con botones grandes.
+- Particulas brillantes para recompensas.
+
+PALETA SUGERIDA:
+- Azul oscuro espacial para fondo.
+- Cian y turquesa para cristales.
+- Amarillo/dorado para monedas y recompensas.
+- Magenta o violeta solo como acento.
+- Blanco suave para texto principal.
+
+EVITAR:
+- Fondos demasiado cargados.
+- Iconos inconsistentes.
+- Texto pequeno.
+- Mezclar muchos estilos visuales generados por IA sin editar.
+
+ASSETS NECESARIOS PARA MVP:
+- Cristal principal.
+- Fondo de laboratorio simple.
+- 5 iconos de upgrades.
+- Botones UI.
+- Icono de moneda/cristal.
+- Efecto de particulas.
+- Icono de anuncio.
+- Icono de tienda.
+- Icono de ajustes.
+
+ASSETS PARA VERSION 1.0:
+- 3 fondos por etapa de progreso.
+- 15 a 25 iconos de upgrades.
+- 5 maquinas/generadores.
+- Cofres.
+- Efectos de recompensa.
+- Icono de app.
+- Feature graphic para Google Play.
+- Capturas promocionales.
+
+========================================
+11. USO DE IMAGENES GENERADAS POR IA
+========================================
+
+SI, ES RECOMENDABLE USAR IA PARA:
+- Fondos.
+- Iconos de upgrades.
+- Concept art.
+- Texturas suaves.
+- Imagen promocional de Google Play.
+- Variaciones de maquinas o cristales.
+
+NO DEPENDER SOLO DE IA PARA:
+- UI final sin limpieza.
+- Iconos que necesitan consistencia exacta.
+- Elementos con texto dentro de la imagen.
+- Sprites que requieren animacion precisa.
+
+FLUJO RECOMENDADO:
+1. Generar concept art con IA.
+2. Elegir una direccion visual.
+3. Limpiar/editar en Photoshop, Photopea, Krita, GIMP o Canva.
+4. Exportar PNG con fondo transparente cuando sea necesario.
+5. Mantener misma paleta, iluminacion y perspectiva.
+6. Optimizar peso de imagen antes de meterlo a Unity.
+
+PROMPTS SUGERIDOS PARA IA:
+
+[Cristal principal]
+"2D mobile game asset, glowing cyan crystal, centered object, clean silhouette, transparent background, casual idle clicker style, polished, vibrant, no text"
+
+[Fondo laboratorio]
+"2D mobile game background, cozy futuristic crystal laboratory, soft blue lighting, simple shapes, casual game art, empty center space for gameplay UI, high readability, no text"
+
+[Maquina generadora]
+"2D icon for mobile idle game, small futuristic crystal mining machine, cute mechanical design, cyan glow, clean outline, transparent background, no text"
+
+[Icono de moneda]
+"2D mobile game currency icon, small golden crystal coin, shiny, readable at small size, transparent background, no text"
+
+[Imagen promocional]
+"Colorful 2D mobile idle clicker game key art, cosmic crystal factory, glowing crystals, cute machines, sense of progression and rewards, vertical composition, polished app store style, no text"
+
+CONSEJO:
+Generar imagenes en lotes y seleccionar las mas consistentes. La consistencia visual vale mas que tener muchas imagenes diferentes.
+
+========================================
+12. AUDIO
+========================================
+
+MUSICA:
+- Loop suave, relajante, no invasivo.
+- Duracion ideal: 60 a 120 segundos.
+- Debe poder repetirse sin molestar.
+
+SFX:
+- Toque del cristal.
+- Compra de upgrade.
+- Error/no alcanza dinero.
+- Recompensa diaria.
+- Cofre abierto.
+- Prestigio.
+
+RECOMENDACION:
+El audio debe reforzar satisfaccion, no cansar. En idle clicker, sonidos repetitivos mal elegidos pueden hacer que el jugador cierre el juego.
+
+========================================
+13. ANALITICA
+========================================
+
+USAR:
+- Firebase Analytics.
+- Crashlytics.
+- Remote Config despues del MVP.
+
+EVENTOS IMPORTANTES:
+- game_start
+- tutorial_started
+- tutorial_completed
+- session_start
+- session_end
+- upgrade_purchased
+- ad_reward_requested
+- ad_reward_completed
+- interstitial_shown
+- iap_started
+- iap_completed
+- iap_failed
+- daily_reward_claimed
+- offline_reward_claimed
+- prestige_completed
+- level_milestone_reached
+
+METRICAS CLAVE:
+- Retencion D1.
+- Retencion D7.
+- Duracion media de sesion.
+- Sesiones por usuario por dia.
+- ARPDAU.
+- Porcentaje de usuarios que ven rewarded ads.
+- Conversion IAP.
+- Crash-free users.
+
+OBJETIVOS INICIALES REALISTAS:
+- D1 retention: 25% o mas.
+- D7 retention: 8% o mas.
+- Crash-free users: 99% o mas.
+- Rewarded ad engagement: 20% o mas.
+
+========================================
+14. RETENCION
+========================================
+
+SISTEMAS CLAVE:
+- Recompensa diaria.
+- Progreso offline.
+- Misiones diarias.
+- Metas visibles.
+- Desbloqueos visuales.
+- Eventos temporales simples.
+
+RECOMPENSA DIARIA:
+- Dia 1: monedas.
+- Dia 2: boost x2 por 2 minutos.
+- Dia 3: cofre comun.
+- Dia 4: monedas.
+- Dia 5: boost x2 por 5 minutos.
+- Dia 6: cofre raro.
+- Dia 7: gran recompensa.
+
+EVENTOS TEMPORALES:
+- Evento de fin de semana.
+- Doble produccion por 24 horas.
+- Cofres especiales.
+- Misiones con recompensa extra.
+
+NOTIFICACIONES:
+- Opcional.
+- Usarlas con cuidado.
+- Ejemplo: "Tus cristales offline estan listos".
+- Pedir permiso en un momento adecuado, no al abrir el juego por primera vez.
+
+========================================
+15. TUTORIAL
+========================================
+
+OBJETIVO:
+Explicar el juego en menos de 60 segundos.
+
+PASOS:
+1. Toca el cristal para ganar cristales.
+2. Compra tu primera mejora.
+3. Observa como aumenta la produccion.
+4. Reclama una recompensa pequena.
+5. Dejar al jugador libre.
+
+RECOMENDACION:
+Evitar textos largos. Guiar con flechas, resaltados y acciones obligatorias minimas.
+
+========================================
+16. ROADMAP DE DESARROLLO
+========================================
+
+FASE 1 - PROTOTIPO JUGABLE (DIAS 1-3)
+- Crear proyecto Unity 2D.
+- Crear escena Game.
+- Agregar contador de monedas.
+- Agregar boton/cristal tocable.
+- Sumar monedas por toque.
+- Guardar monedas basicas.
+
+RESULTADO:
+El jugador puede tocar y acumular monedas.
+
+FASE 2 - ECONOMIA BASICA (DIAS 4-7)
+- Crear upgrades.
+- Crear tienda.
+- Agregar costos crecientes.
+- Agregar monedas por segundo.
+- Mostrar produccion en UI.
+
+RESULTADO:
+El juego ya tiene progresion real.
+
+FASE 3 - GUARDADO Y OFFLINE (DIAS 8-10)
+- Guardado completo.
+- Calculo offline.
+- Popup de regreso.
+- Formato compacto de numeros.
+
+RESULTADO:
+El jugador progresa incluso al cerrar el juego.
+
+FASE 4 - RETENCION (DIAS 11-14)
+- Recompensa diaria.
+- Misiones diarias simples.
+- Primeras metas visuales.
+
+RESULTADO:
+Hay razones para volver cada dia.
+
+FASE 5 - ADS (DIAS 15-18)
+- Integrar rewarded ads.
+- Recompensa por anuncio.
+- Duplicar recompensa offline con anuncio.
+- Configurar frecuencia de interstitials con cuidado.
+
+RESULTADO:
+Primera monetizacion funcional.
+
+FASE 6 - IAP (DIAS 19-23)
+- Google Play Billing.
+- Productos de monedas.
+- Remove Ads.
+- Restaurar compras.
+- Manejo de errores.
+
+RESULTADO:
+Compras reales listas para prueba cerrada.
+
+FASE 7 - ARTE Y PULIDO (DIAS 24-30)
+- Reemplazar placeholders.
+- Agregar particulas.
+- Agregar sonidos.
+- Mejorar UI.
+- Preparar icono y capturas.
+
+RESULTADO:
+Juego presentable.
+
+FASE 8 - TESTING Y PUBLICACION (DIAS 31-40)
+- Pruebas en dispositivos reales.
+- Optimizar rendimiento.
+- Crear ficha en Google Play.
+- Prueba interna.
+- Prueba cerrada.
+- Lanzamiento gradual.
+
+RESULTADO:
+Juego publicado o listo para produccion.
+
+========================================
+17. CODIGO BASE RECOMENDADO
+========================================
+
+NOTA:
+Este codigo es una base conceptual. Para produccion conviene separar responsabilidades y usar eventos para actualizar UI.
+
+GameManager.cs:
+
+using UnityEngine;
+
+public class GameManager : MonoBehaviour
+{
+    public static GameManager Instance { get; private set; }
+
+    public double Coins { get; private set; }
+    public double ClickPower { get; private set; } = 1;
+    public double CoinsPerSecond { get; private set; }
+
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+        LoadGame();
+    }
+
+    private void Update()
+    {
+        AddCoins(CoinsPerSecond * Time.deltaTime, false);
+    }
+
+    public void ClickMainObject()
+    {
+        AddCoins(ClickPower, true);
+    }
+
+    public void AddCoins(double amount, bool saveImmediately)
+    {
+        Coins += amount;
+
+        if (saveImmediately)
+        {
+            SaveGame();
+        }
+    }
+
+    public bool SpendCoins(double amount)
+    {
+        if (Coins < amount)
+        {
+            return false;
+        }
+
+        Coins -= amount;
+        SaveGame();
+        return true;
+    }
+
+    public void IncreaseClickPower(double amount)
+    {
+        ClickPower += amount;
+        SaveGame();
+    }
+
+    public void IncreaseCoinsPerSecond(double amount)
+    {
+        CoinsPerSecond += amount;
+        SaveGame();
+    }
+
+    private void SaveGame()
+    {
+        PlayerPrefs.SetString("coins", Coins.ToString());
+        PlayerPrefs.SetString("clickPower", ClickPower.ToString());
+        PlayerPrefs.SetString("coinsPerSecond", CoinsPerSecond.ToString());
+        PlayerPrefs.Save();
+    }
+
+    private void LoadGame()
+    {
+        Coins = double.Parse(PlayerPrefs.GetString("coins", "0"));
+        ClickPower = double.Parse(PlayerPrefs.GetString("clickPower", "1"));
+        CoinsPerSecond = double.Parse(PlayerPrefs.GetString("coinsPerSecond", "0"));
+    }
+}
+
+----------------------------------------
+
+UpgradeData.cs:
+
+using UnityEngine;
+
+[CreateAssetMenu(menuName = "Game/Upgrade")]
+public class UpgradeData : ScriptableObject
+{
+    public string upgradeId;
+    public string displayName;
+    public double baseCost = 10;
+    public double costGrowth = 1.15;
+    public double clickPowerBonus;
+    public double coinsPerSecondBonus;
+}
+
+----------------------------------------
+
+UpgradeSystem.cs:
+
+using System;
+using UnityEngine;
+
+public class UpgradeSystem : MonoBehaviour
+{
+    public double GetCost(UpgradeData upgrade, int currentLevel)
+    {
+        return upgrade.baseCost * Math.Pow(upgrade.costGrowth, currentLevel);
+    }
+
+    public bool BuyUpgrade(UpgradeData upgrade, int currentLevel)
+    {
+        double cost = GetCost(upgrade, currentLevel);
+
+        if (!GameManager.Instance.SpendCoins(cost))
+        {
+            return false;
+        }
+
+        if (upgrade.clickPowerBonus > 0)
+        {
+            GameManager.Instance.IncreaseClickPower(upgrade.clickPowerBonus);
+        }
+
+        if (upgrade.coinsPerSecondBonus > 0)
+        {
+            GameManager.Instance.IncreaseCoinsPerSecond(upgrade.coinsPerSecondBonus);
+        }
+
+        return true;
+    }
+}
+
+----------------------------------------
+
+NumberFormatter.cs:
+
+public static class NumberFormatter
+{
+    private static readonly string[] Suffixes = { "", "K", "M", "B", "T", "Qa", "Qi" };
+
+    public static string Format(double value)
+    {
+        int suffixIndex = 0;
+
+        while (value >= 1000 && suffixIndex < Suffixes.Length - 1)
+        {
+            value /= 1000;
+            suffixIndex++;
+        }
+
+        return value.ToString("0.##") + Suffixes[suffixIndex];
+    }
+}
+
+========================================
+18. CHECKLIST TECNICO
+========================================
+
+ANTES DE PUBLICAR:
+- El juego no crashea en dispositivos reales.
+- La UI se ve bien en varias resoluciones.
+- El guardado funciona al cerrar y abrir.
+- Las compras se prueban con cuentas de test.
+- Remove Ads funciona.
+- Los anuncios recompensados entregan recompensa solo si el anuncio se completa.
+- Hay politica de privacidad.
+- La ficha de Google Play tiene capturas reales.
+- El icono cumple requisitos.
+- La version esta firmada como AAB.
+- Se configuro edad objetivo y contenido correctamente.
+
+TESTS MANUALES:
+- Instalar limpio.
+- Comprar upgrade.
+- Cerrar app y abrir.
+- Cambiar hora del dispositivo y revisar offline progress.
+- Intentar comprar sin internet.
+- Ver anuncio recompensado.
+- Fallo de anuncio.
+- Comprar Remove Ads.
+- Restaurar compra.
+
+========================================
+19. GOOGLE PLAY
+========================================
+
+REQUISITOS:
+- Cuenta Google Play Developer.
+- App Bundle AAB firmado.
+- Politica de privacidad.
+- Clasificacion de contenido.
+- Declaracion de anuncios.
+- Ficha de tienda.
+- Capturas de pantalla.
+- Icono 512x512.
+- Feature graphic 1024x500.
+
+FICHA DE TIENDA:
+
+NOMBRE POSIBLE:
+- Crystal Factory Idle
+- Cosmic Crystal Clicker
+- Fabrica de Cristales Idle
+- Crystal Lab Tycoon
+
+DESCRIPCION CORTA:
+"Toca, mejora y expande tu fabrica cosmica de cristales. Gana recompensas incluso offline."
+
+CAPTURAS RECOMENDADAS:
+1. Pantalla principal con cristal y contador.
+2. Tienda de mejoras.
+3. Recompensa offline.
+4. Desbloqueo de nueva maquina.
+5. Evento o recompensa diaria.
+
+========================================
+20. RIESGOS Y SOLUCIONES
+========================================
+
+RIESGO: El juego se siente generico.
+SOLUCION: Dar identidad visual fuerte, buena satisfaccion al tocar y desbloqueos visibles.
+
+RIESGO: El jugador abandona rapido.
+SOLUCION: Primeros 5 minutos con recompensas frecuentes y metas claras.
+
+RIESGO: Ads molestos.
+SOLUCION: Priorizar rewarded ads y limitar interstitials.
+
+RIESGO: Economia rota.
+SOLUCION: Usar Remote Config y medir progreso real.
+
+RIESGO: Arte IA inconsistente.
+SOLUCION: Definir paleta, estilo y prompts fijos; editar manualmente los mejores resultados.
+
+RIESGO: Scope demasiado grande.
+SOLUCION: Publicar MVP con pocos sistemas y agregar contenido despues.
+
+========================================
+21. SIGUIENTE PASO RECOMENDADO
+========================================
+
+PASO 1:
+Elegir el tema definitivo del juego.
+
+RECOMENDACION:
+Usar "Fabrica de Cristales Cosmica".
+
+PASO 2:
+Crear un documento separado con la economia inicial:
+- 10 upgrades.
+- Costos.
+- Beneficios.
+- Tiempo estimado para comprar cada uno.
+
+PASO 3:
+Crear el proyecto Unity 2D.
+
+PASO 4:
+Implementar solo esto primero:
+- Cristal tocable.
+- Contador de monedas.
+- 3 upgrades.
+- Guardado.
+
+PASO 5:
+Probar si el loop basico se siente bien antes de meter ads, IAP o arte final.
+
+========================================
+22. LISTA DE UPGRADES INICIALES PROPUESTA
+========================================
+
+1. Pulidor Manual
+- Tipo: click.
+- Efecto: +1 cristal por toque.
+- Costo base: 10.
+
+2. Martillo de Resonancia
+- Tipo: click.
+- Efecto: +3 cristales por toque.
+- Costo base: 75.
+
+3. Mesa Energetica
+- Tipo: idle.
+- Efecto: +1 cristal por segundo.
+- Costo base: 150.
+
+4. Mini Robot Minero
+- Tipo: idle.
+- Efecto: +5 cristales por segundo.
+- Costo base: 750.
+
+5. Reactor de Luz
+- Tipo: multiplicador.
+- Efecto: +10% produccion total.
+- Costo base: 2500.
+
+6. Tunel de Cristales
+- Tipo: idle.
+- Efecto: +25 cristales por segundo.
+- Costo base: 8000.
+
+7. Dron Cosmico
+- Tipo: idle.
+- Efecto: +100 cristales por segundo.
+- Costo base: 25000.
+
+8. Prisma Amplificador
+- Tipo: click.
+- Efecto: +50 cristales por toque.
+- Costo base: 60000.
+
+9. Portal Mineral
+- Tipo: idle.
+- Efecto: +500 cristales por segundo.
+- Costo base: 250000.
+
+10. Nucleo Galactico
+- Tipo: multiplicador.
+- Efecto: x2 produccion total.
+- Costo base: 1000000.
+
+========================================
+23. DEFINICION DE MVP
+========================================
+
+EL MVP DEBE TENER:
+- Una escena jugable.
+- Monedas.
+- Toque principal.
+- 10 upgrades.
+- Monedas por segundo.
+- Guardado local.
+- Progreso offline.
+- Recompensa diaria basica.
+- Un rewarded ad funcional.
+- UI presentable.
+- Icono temporal.
+
+EL MVP NO NECESITA TODAVIA:
+- Muchos mundos.
+- Personajes animados.
+- Login.
+- Backend complejo.
+- Eventos avanzados.
+- Cofres premium.
+- Multiplayer.
+
+CRITERIO DE EXITO DEL MVP:
+Una persona externa puede instalarlo, entenderlo sin explicacion y jugar al menos 5 minutos sin trabarse.
+
+========================================
+24. OBJETIVO FINAL
+========================================
+
+Crear un juego simple, medible y mejorable que:
+- Retenga usuarios.
+- Genere sesiones repetidas.
+- Use anuncios recompensados como acelerador opcional.
+- Venda compras claras y justas.
+- Sea facil de actualizar con nuevos upgrades, eventos y assets.
+
+ENFOQUE CORRECTO:
+Primero jugabilidad funcional. Luego arte. Luego monetizacion. Luego optimizacion con datos.
+
+========================================
+FIN DEL DOCUMENTO
+========================================

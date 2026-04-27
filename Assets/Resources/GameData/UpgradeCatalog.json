@@ -1,0 +1,124 @@
+{
+  "upgrades": [
+    {
+      "id": "manual_polisher",
+      "displayName": "Pulidor Manual",
+      "description": "+1 cristal por toque.",
+      "type": "click",
+      "baseCost": 10,
+      "costGrowth": 1.15,
+      "clickPowerBonus": 1,
+      "coinsPerSecondBonus": 0,
+      "globalMultiplierBonus": 0,
+      "unlockAtTotalCoins": 0
+    },
+    {
+      "id": "resonance_hammer",
+      "displayName": "Martillo de Resonancia",
+      "description": "+3 cristales por toque.",
+      "type": "click",
+      "baseCost": 75,
+      "costGrowth": 1.17,
+      "clickPowerBonus": 3,
+      "coinsPerSecondBonus": 0,
+      "globalMultiplierBonus": 0,
+      "unlockAtTotalCoins": 40
+    },
+    {
+      "id": "energy_table",
+      "displayName": "Mesa Energetica",
+      "description": "+1 cristal por segundo.",
+      "type": "idle",
+      "baseCost": 150,
+      "costGrowth": 1.16,
+      "clickPowerBonus": 0,
+      "coinsPerSecondBonus": 1,
+      "globalMultiplierBonus": 0,
+      "unlockAtTotalCoins": 100
+    },
+    {
+      "id": "mini_mining_robot",
+      "displayName": "Mini Robot Minero",
+      "description": "+5 cristales por segundo.",
+      "type": "idle",
+      "baseCost": 750,
+      "costGrowth": 1.18,
+      "clickPowerBonus": 0,
+      "coinsPerSecondBonus": 5,
+      "globalMultiplierBonus": 0,
+      "unlockAtTotalCoins": 500
+    },
+    {
+      "id": "light_reactor",
+      "displayName": "Reactor de Luz",
+      "description": "+10% produccion total.",
+      "type": "multiplier",
+      "baseCost": 2500,
+      "costGrowth": 1.2,
+      "clickPowerBonus": 0,
+      "coinsPerSecondBonus": 0,
+      "globalMultiplierBonus": 0.1,
+      "unlockAtTotalCoins": 1500
+    },
+    {
+      "id": "crystal_tunnel",
+      "displayName": "Tunel de Cristales",
+      "description": "+25 cristales por segundo.",
+      "type": "idle",
+      "baseCost": 8000,
+      "costGrowth": 1.2,
+      "clickPowerBonus": 0,
+      "coinsPerSecondBonus": 25,
+      "globalMultiplierBonus": 0,
+      "unlockAtTotalCoins": 5000
+    },
+    {
+      "id": "cosmic_drone",
+      "displayName": "Dron Cosmico",
+      "description": "+100 cristales por segundo.",
+      "type": "idle",
+      "baseCost": 25000,
+      "costGrowth": 1.22,
+      "clickPowerBonus": 0,
+      "coinsPerSecondBonus": 100,
+      "globalMultiplierBonus": 0,
+      "unlockAtTotalCoins": 15000
+    },
+    {
+      "id": "amplifier_prism",
+      "displayName": "Prisma Amplificador",
+      "description": "+50 cristales por toque.",
+      "type": "click",
+      "baseCost": 60000,
+      "costGrowth": 1.2,
+      "clickPowerBonus": 50,
+      "coinsPerSecondBonus": 0,
+      "globalMultiplierBonus": 0,
+      "unlockAtTotalCoins": 40000
+    },
+    {
+      "id": "mineral_portal",
+      "displayName": "Portal Mineral",
+      "description": "+500 cristales por segundo.",
+      "type": "idle",
+      "baseCost": 250000,
+      "costGrowth": 1.23,
+      "clickPowerBonus": 0,
+      "coinsPerSecondBonus": 500,
+      "globalMultiplierBonus": 0,
+      "unlockAtTotalCoins": 150000
+    },
+    {
+      "id": "galactic_core",
+      "displayName": "Nucleo Galactico",
+      "description": "+100% produccion total.",
+      "type": "multiplier",
+      "baseCost": 1000000,
+      "costGrowth": 1.25,
+      "clickPowerBonus": 0,
+      "coinsPerSecondBonus": 0,
+      "globalMultiplierBonus": 1,
+      "unlockAtTotalCoins": 700000
+    }
+  ]
+}

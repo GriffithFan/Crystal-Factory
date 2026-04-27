@@ -1,0 +1,44 @@
+{
+  "missions": [
+    {
+      "id": "tap_50",
+      "displayName": "Primer brillo",
+      "description": "Toca el cristal 50 veces.",
+      "type": 0,
+      "target": 50,
+      "rewardCoins": 150
+    },
+    {
+      "id": "buy_3_upgrades",
+      "displayName": "Pequena expansion",
+      "description": "Compra 3 mejoras.",
+      "type": 1,
+      "target": 3,
+      "rewardCoins": 300
+    },
+    {
+      "id": "earn_1000_coins",
+      "displayName": "Cristales en marcha",
+      "description": "Gana 1000 cristales.",
+      "type": 4,
+      "target": 1000,
+      "rewardCoins": 500
+    },
+    {
+      "id": "watch_1_rewarded_ad",
+      "displayName": "Impulso voluntario",
+      "description": "Mira 1 anuncio recompensado.",
+      "type": 2,
+      "target": 1,
+      "rewardCoins": 750
+    },
+    {
+      "id": "claim_daily_reward",
+      "displayName": "Regreso valioso",
+      "description": "Reclama 1 recompensa diaria.",
+      "type": 3,
+      "target": 1,
+      "rewardCoins": 400
+    }
+  ]
+}

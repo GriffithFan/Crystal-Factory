@@ -1,0 +1,58 @@
+{
+  "stages": [
+    {
+      "id": "sleeping_fragment",
+      "displayName": "Fragmento Dormido",
+      "lore": "Un cristal apagado aparece en una mesa olvidada. Cada toque despierta una vibracion antigua bajo el laboratorio.",
+      "unlockAtTotalCoins": 0,
+      "visualMood": "Laboratorio oscuro, cristal tenue, inicio misterioso",
+      "primaryColor": "#101827",
+      "accentColor": "#26D9FF"
+    },
+    {
+      "id": "first_resonance",
+      "displayName": "Primera Resonancia",
+      "lore": "El cristal responde. Sus pulsos empiezan a alimentar herramientas pequenas y el laboratorio deja de parecer abandonado.",
+      "unlockAtTotalCoins": 500,
+      "visualMood": "Primer brillo, mesa energizada, particulas suaves",
+      "primaryColor": "#102B3A",
+      "accentColor": "#39F5C6"
+    },
+    {
+      "id": "automatic_workshop",
+      "displayName": "Taller Automatico",
+      "lore": "Los primeros mecanismos trabajan solos. El jugador ya no solo toca: dirige una fabrica que aprende a producir mientras descansa.",
+      "unlockAtTotalCoins": 5000,
+      "visualMood": "Maquinas pequenas, luces tecnicas, progreso visible",
+      "primaryColor": "#172238",
+      "accentColor": "#FFD166"
+    },
+    {
+      "id": "portal_core",
+      "displayName": "Nucleo del Portal",
+      "lore": "La produccion abre una grieta estable. Al otro lado hay vetas de cristal que no pertenecen a este planeta.",
+      "unlockAtTotalCoins": 50000,
+      "visualMood": "Portal circular, energia cosmica, escala mayor",
+      "primaryColor": "#1D1833",
+      "accentColor": "#B86BFF"
+    },
+    {
+      "id": "orbital_foundry",
+      "displayName": "Fundicion Orbital",
+      "lore": "La fabrica se eleva a la orbita. Robots, drones y reactores convierten polvo estelar en cristales puros.",
+      "unlockAtTotalCoins": 500000,
+      "visualMood": "Orbita, drones, fabrica espacial, recompensa grande",
+      "primaryColor": "#09111F",
+      "accentColor": "#FF9F1C"
+    },
+    {
+      "id": "galactic_engine",
+      "displayName": "Motor Galactico",
+      "lore": "El cristal original era una llave. La fabrica entera vibra como un motor capaz de despertar constelaciones dormidas.",
+      "unlockAtTotalCoins": 5000000,
+      "visualMood": "Galaxia, reactor enorme, climax visual",
+      "primaryColor": "#140F26",
+      "accentColor": "#F72585"
+    }
+  ]
+}
