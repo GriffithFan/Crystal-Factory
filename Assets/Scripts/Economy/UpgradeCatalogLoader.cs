@@ -14,7 +14,7 @@ public class UpgradeCatalogLoader : MonoBehaviour
             return new UpgradeDefinition[0];
         }
 
-        UpgradeCatalog catalog = UnityEngine.JsonUtility.FromJson<UpgradeCatalog>(catalogAsset.text);
+        UpgradeCatalog catalog = JsonUtility.FromJson<UpgradeCatalog>(catalogAsset.text);
         return catalog?.upgrades ?? new UpgradeDefinition[0];
     }
 }
