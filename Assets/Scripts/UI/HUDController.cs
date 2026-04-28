@@ -15,6 +15,8 @@ public class HUDController : MonoBehaviour
     [SerializeField] private Button dailyRewardButton;
     [SerializeField] private Button rewardedAdButton;
 
+    private int sessionCrystalTaps;
+
     private void OnEnable()
     {
         GameEvents.CoinsChanged += UpdateCoins;
@@ -42,6 +44,7 @@ public class HUDController : MonoBehaviour
     private void Start()
     {
         RefreshDailyRewardButton();
+        SetStatus("Objetivo: toca el cristal 10 veces y compra Pulidor Manual.");
     }
 
     private void OnDisable()
@@ -70,11 +73,33 @@ public class HUDController : MonoBehaviour
 
     private void OnCrystalClicked()
     {
+        if (GameManager.Instance == null)
+        {
+            SetStatus("El sistema aun esta iniciando. Espera un segundo.");
+            return;
+        }
+
         GameManager.Instance.ClickMainCrystal();
+        sessionCrystalTaps++;
+
+        if (sessionCrystalTaps < 10)
+        {
+            SetStatus("Bien. Sigue tocando el cristal: " + sessionCrystalTaps + "/10");
+        }
+        else
+        {
+            SetStatus("Ahora compra Pulidor Manual en MEJORAS para producir mas por toque.");
+        }
     }
 
     private void OnDailyRewardClicked()
     {
+        if (GameManager.Instance == null)
+        {
+            SetStatus("El sistema aun esta iniciando. Espera un segundo.");
+            return;
+        }
+
         double reward = GameManager.Instance.ClaimDailyReward();
 
         if (reward > 0)
@@ -91,6 +116,12 @@ public class HUDController : MonoBehaviour
 
     private void OnRewardedAdClicked()
     {
+        if (GameManager.Instance == null)
+        {
+            SetStatus("El sistema aun esta iniciando. Espera un segundo.");
+            return;
+        }
+
         GameManager.Instance.Ads.ShowRewardedAd();
         SetStatus("Recompensa de anuncio recibida.");
     }

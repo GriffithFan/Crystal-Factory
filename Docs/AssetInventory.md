@@ -54,4 +54,5 @@
 - Los PNG bajo `Assets/Resources/Art/` se importan automaticamente como `Sprite (2D and UI)` mediante `ArtSpritePostprocessor`.
 - Las etapas cargan `backgroundResource` desde `StageCatalog.json`.
 - Las mejoras cargan `iconResource` desde `UpgradeCatalog.json`.
-- El generador de escena usa `Art/Crystals/crystal_main` si Unity ya lo importo como sprite.
+- El generador de escena mantiene el boton principal como cristal procedural para asegurar transparencia y clicks confiables.
+- Si un asset generado trae fondo rectangular, no debe usarse como boton principal o icono transparente hasta regenerarlo con fondo transparente real. Por ahora el cristal principal jugable usa grafico procedural.

@@ -33,29 +33,29 @@ public static class PrototypeSceneBuilder
         GameObject phoneRoot = CreatePhoneRoot(canvas.transform);
         GameObject mainLayout = CreateMainLayout(phoneRoot.transform);
 
-        TMP_Text titleText = CreateText("GameTitleText", mainLayout.transform, "CRYSTAL FACTORY", 54, 64, TextAlignmentOptions.Center);
+        TMP_Text titleText = CreateText("GameTitleText", mainLayout.transform, "CRYSTAL FACTORY", 46, 54, TextAlignmentOptions.Center);
         titleText.color = new Color(0.72f, 0.96f, 1f);
-        TMP_Text stageTitleText = CreateText("StageTitleText", mainLayout.transform, "Fragmento Dormido", 30, 38, TextAlignmentOptions.Center);
-        TMP_Text loreText = CreateText("LoreText", mainLayout.transform, "Un cristal apagado aparece en una mesa olvidada. Cada toque despierta una vibracion antigua bajo el laboratorio.", 22, 62, TextAlignmentOptions.Center);
+        TMP_Text stageTitleText = CreateText("StageTitleText", mainLayout.transform, "Fragmento Dormido", 26, 34, TextAlignmentOptions.Center);
+        TMP_Text loreText = CreateText("LoreText", mainLayout.transform, "Toca el cristal, gana cristales y compra mejoras para automatizar la fabrica.", 22, 58, TextAlignmentOptions.Center);
         loreText.color = new Color(0.85f, 0.9f, 0.96f);
-        TMP_Text coinsText = CreateText("CoinsText", mainLayout.transform, "0", 72, 76, TextAlignmentOptions.Center);
+        TMP_Text coinsText = CreateText("CoinsText", mainLayout.transform, "0", 78, 78, TextAlignmentOptions.Center);
         TMP_Text cpsText = CreateText("CoinsPerSecondText", mainLayout.transform, "0/s", 26, 30, TextAlignmentOptions.Center);
         TMP_Text clickPowerText = CreateText("ClickPowerText", mainLayout.transform, "+1 por toque", 21, 28, TextAlignmentOptions.Center);
 
         Button crystalButton = CreateCrystalButton(mainLayout.transform);
-        TMP_Text statusText = CreateText("StatusText", mainLayout.transform, "Toca el cristal para comenzar", 20, 40, TextAlignmentOptions.Center);
-        statusText.color = new Color(0.72f, 0.83f, 0.9f);
+        TMP_Text statusText = CreateText("StatusText", mainLayout.transform, "Objetivo: toca el cristal 10 veces y compra tu primera mejora", 24, 58, TextAlignmentOptions.Center);
+        statusText.color = new Color(1f, 0.9f, 0.48f);
 
-        GameObject actionRow = CreateHorizontalGroup("ActionRow", mainLayout.transform, 82);
-        Button dailyRewardButton = CreateButton("DailyRewardButton", actionRow.transform, "Diaria", new Color(0.35f, 0.24f, 0.07f), 24, 82);
-        Button rewardedAdButton = CreateButton("RewardedAdButton", actionRow.transform, "Boost", new Color(0.08f, 0.28f, 0.2f), 24, 82);
+        GameObject actionRow = CreateHorizontalGroup("ActionRow", mainLayout.transform, 74);
+        Button dailyRewardButton = CreateButton("DailyRewardButton", actionRow.transform, "Diaria", new Color(0.45f, 0.31f, 0.08f), 22, 74);
+        Button rewardedAdButton = CreateButton("RewardedAdButton", actionRow.transform, "Boost", new Color(0.08f, 0.35f, 0.25f), 22, 74);
 
-        GameObject listsColumn = CreateVerticalGroup("ListsColumn", mainLayout.transform, 770, 12);
-        GameObject shopPanel = CreatePanel("ShopPanel", listsColumn.transform, "MEJORAS", 430);
-        Transform shopContent = CreateScrollContent(shopPanel.transform, "ShopScrollView", 356);
+        GameObject listsColumn = CreateVerticalGroup("ListsColumn", mainLayout.transform, 700, 12);
+        GameObject shopPanel = CreatePanel("ShopPanel", listsColumn.transform, "MEJORAS", 390);
+        Transform shopContent = CreateScrollContent(shopPanel.transform, "ShopScrollView", 316);
 
-        GameObject missionsPanel = CreatePanel("MissionsPanel", listsColumn.transform, "MISIONES", 328);
-        Transform missionsContent = CreateScrollContent(missionsPanel.transform, "MissionsScrollView", 254);
+        GameObject missionsPanel = CreatePanel("MissionsPanel", listsColumn.transform, "MISIONES", 298);
+        Transform missionsContent = CreateScrollContent(missionsPanel.transform, "MissionsScrollView", 224);
 
         UpgradeButtonView upgradePrefab = CreateUpgradeButtonPrefab();
         MissionRowView missionPrefab = CreateMissionRowPrefab();
@@ -162,6 +162,7 @@ public static class PrototypeSceneBuilder
         image.sprite = backgroundSprite;
         image.color = backgroundSprite == null ? new Color(0.06f, 0.09f, 0.15f, 1f) : Color.white;
         image.preserveAspect = false;
+        image.raycastTarget = false;
 
         RectTransform rect = backgroundObject.GetComponent<RectTransform>();
         rect.anchorMin = Vector2.zero;
@@ -177,6 +178,7 @@ public static class PrototypeSceneBuilder
         bandObject.transform.SetParent(parent, false);
         Image image = bandObject.AddComponent<Image>();
         image.color = new Color(0.15f, 0.86f, 1f, 0.16f);
+        image.raycastTarget = false;
         bandObject.AddComponent<AmbientPulseController>();
 
         RectTransform rect = bandObject.GetComponent<RectTransform>();
@@ -278,10 +280,14 @@ public static class PrototypeSceneBuilder
         GameObject buttonObject = new GameObject("CrystalButton");
         buttonObject.transform.SetParent(parent, false);
         RectTransform rect = buttonObject.AddComponent<RectTransform>();
-        rect.sizeDelta = new Vector2(0, 440);
-        AddLayoutElement(buttonObject, 440);
+        rect.sizeDelta = new Vector2(0, 390);
+        AddLayoutElement(buttonObject, 390);
 
+        Image hitArea = buttonObject.AddComponent<Image>();
+        hitArea.color = new Color(1f, 1f, 1f, 0.001f);
+        hitArea.raycastTarget = true;
         Button button = buttonObject.AddComponent<Button>();
+        button.targetGraphic = hitArea;
         CrystalPulseController pulse = buttonObject.AddComponent<CrystalPulseController>();
 
         GameObject outerGlowObject = CreateEllipse("OuterCrystalGlow", buttonObject.transform, new Color(0.13f, 0.86f, 1f, 0.32f), new Color(0.02f, 0.12f, 0.28f, 0f));
@@ -298,6 +304,7 @@ public static class PrototypeSceneBuilder
         pedestalObject.transform.SetParent(buttonObject.transform, false);
         Image pedestal = pedestalObject.AddComponent<Image>();
         pedestal.color = new Color(0.08f, 0.2f, 0.3f, 0.88f);
+        pedestal.raycastTarget = false;
         RectTransform pedestalRect = pedestalObject.GetComponent<RectTransform>();
         pedestalRect.anchorMin = new Vector2(0.3f, 0.04f);
         pedestalRect.anchorMax = new Vector2(0.7f, 0.14f);
@@ -306,27 +313,15 @@ public static class PrototypeSceneBuilder
 
         GameObject crystalObject = new GameObject("CrystalGem");
         crystalObject.transform.SetParent(buttonObject.transform, false);
-        Sprite crystalSprite = Resources.Load<Sprite>("Art/Crystals/crystal_main");
-        Graphic crystalGraphic;
-        if (crystalSprite != null)
-        {
-            Image crystalImage = crystalObject.AddComponent<Image>();
-            crystalImage.sprite = crystalSprite;
-            crystalImage.preserveAspect = true;
-            crystalGraphic = crystalImage;
-        }
-        else
-        {
-            crystalGraphic = crystalObject.AddComponent<CrystalGraphic>();
-        }
+        CrystalGraphic crystalGraphic = crystalObject.AddComponent<CrystalGraphic>();
+        crystalGraphic.raycastTarget = false;
 
         RectTransform crystalRect = crystalObject.GetComponent<RectTransform>();
-        crystalRect.anchorMin = new Vector2(0.18f, 0.06f);
-        crystalRect.anchorMax = new Vector2(0.82f, 0.92f);
+        crystalRect.anchorMin = new Vector2(0.29f, 0.13f);
+        crystalRect.anchorMax = new Vector2(0.71f, 0.9f);
         crystalRect.offsetMin = Vector2.zero;
         crystalRect.offsetMax = Vector2.zero;
 
-        button.targetGraphic = crystalGraphic;
         SetObjectReference(pulse, "target", crystalObject.transform);
         return button;
     }
@@ -338,6 +333,7 @@ public static class PrototypeSceneBuilder
         SoftEllipseGraphic ellipse = ellipseObject.AddComponent<SoftEllipseGraphic>();
         SetColorReference(ellipse, "centerColor", centerColor);
         SetColorReference(ellipse, "edgeColor", edgeColor);
+        ellipse.raycastTarget = false;
         ellipseObject.AddComponent<AmbientPulseController>();
 
         RectTransform rect = ellipseObject.GetComponent<RectTransform>();
@@ -352,6 +348,7 @@ public static class PrototypeSceneBuilder
         panel.transform.SetParent(parent, false);
         Image image = panel.AddComponent<Image>();
         image.color = new Color(0.07f, 0.09f, 0.14f, 0.94f);
+        image.raycastTarget = false;
         AddLayoutElement(panel, height);
 
         VerticalLayoutGroup layout = panel.AddComponent<VerticalLayoutGroup>();
@@ -422,6 +419,7 @@ public static class PrototypeSceneBuilder
         GameObject textObject = new GameObject(name);
         textObject.transform.SetParent(parent, false);
         TextMeshProUGUI tmp = textObject.AddComponent<TextMeshProUGUI>();
+        tmp.raycastTarget = false;
         tmp.text = text;
         tmp.fontSize = size;
         tmp.enableAutoSizing = true;
@@ -451,6 +449,7 @@ public static class PrototypeSceneBuilder
         AddLayoutElement(buttonObject, height);
 
         TMP_Text text = CreateText("Label", buttonObject.transform, label, fontSize, height, TextAlignmentOptions.Center);
+        text.raycastTarget = false;
         RectTransform textRect = text.GetComponent<RectTransform>();
         textRect.anchorMin = Vector2.zero;
         textRect.anchorMax = Vector2.one;
@@ -462,14 +461,21 @@ public static class PrototypeSceneBuilder
 
     private static UpgradeButtonView CreateUpgradeButtonPrefab()
     {
-        GameObject root = CreateRowBase("UpgradeButtonView", 224);
+        GameObject root = CreateRowBase("UpgradeButtonView", 132, true);
         UpgradeButtonView view = root.AddComponent<UpgradeButtonView>();
-        Image iconImage = CreateIconImage("IconImage", root.transform, 58);
-        TMP_Text nameText = CreateText("NameText", root.transform, "Upgrade", 18, 28, TextAlignmentOptions.Left);
-        TMP_Text descriptionText = CreateText("DescriptionText", root.transform, "Description", 14, 40, TextAlignmentOptions.Left);
-        TMP_Text levelText = CreateText("LevelText", root.transform, "Nivel 0", 14, 24, TextAlignmentOptions.Left);
-        TMP_Text costText = CreateText("CostText", root.transform, "0", 16, 26, TextAlignmentOptions.Left);
-        Button buyButton = CreateButton("BuyButton", root.transform, "Comprar", new Color(0.1f, 0.65f, 0.9f), 16, 42);
+        HorizontalLayoutGroup rowLayout = root.GetComponent<HorizontalLayoutGroup>();
+        rowLayout.padding = new RectOffset(12, 12, 10, 10);
+        rowLayout.spacing = 12;
+
+        Image iconImage = CreateIconImage("IconImage", root.transform, 88, 88);
+        GameObject textColumn = CreateVerticalGroup("TextColumn", root.transform, 112, 3);
+        TMP_Text nameText = CreateText("NameText", textColumn.transform, "Upgrade", 20, 30, TextAlignmentOptions.Left);
+        TMP_Text descriptionText = CreateText("DescriptionText", textColumn.transform, "Description", 15, 38, TextAlignmentOptions.Left);
+        TMP_Text levelText = CreateText("LevelText", textColumn.transform, "Nivel 0", 14, 22, TextAlignmentOptions.Left);
+        TMP_Text costText = CreateText("CostText", textColumn.transform, "0", 16, 22, TextAlignmentOptions.Left);
+        Button buyButton = CreateButton("BuyButton", root.transform, "Comprar", new Color(0.1f, 0.65f, 0.9f), 16, 88);
+        buyButton.GetComponent<LayoutElement>().preferredWidth = 160;
+        buyButton.GetComponent<LayoutElement>().flexibleWidth = 0;
 
         SetObjectReference(view, "nameText", nameText);
         SetObjectReference(view, "descriptionText", descriptionText);
@@ -485,7 +491,7 @@ public static class PrototypeSceneBuilder
 
     private static MissionRowView CreateMissionRowPrefab()
     {
-        GameObject root = CreateRowBase("MissionRowView", 172);
+        GameObject root = CreateRowBase("MissionRowView", 172, false);
         MissionRowView view = root.AddComponent<MissionRowView>();
         TMP_Text titleText = CreateText("TitleText", root.transform, "Mission", 18, 28, TextAlignmentOptions.Left);
         TMP_Text descriptionText = CreateText("DescriptionText", root.transform, "Description", 14, 38, TextAlignmentOptions.Left);
@@ -521,33 +527,50 @@ public static class PrototypeSceneBuilder
         return prefab.GetComponent<TMP_Text>();
     }
 
-    private static Image CreateIconImage(string name, Transform parent, float height)
+    private static Image CreateIconImage(string name, Transform parent, float width, float height)
     {
         GameObject iconObject = new GameObject(name);
         iconObject.transform.SetParent(parent, false);
         Image image = iconObject.AddComponent<Image>();
         image.color = Color.white;
         image.preserveAspect = true;
+        image.raycastTarget = false;
 
         RectTransform rect = iconObject.GetComponent<RectTransform>();
-        rect.sizeDelta = new Vector2(0, height);
+        rect.sizeDelta = new Vector2(width, height);
         AddLayoutElement(iconObject, height);
+        iconObject.GetComponent<LayoutElement>().preferredWidth = width;
+        iconObject.GetComponent<LayoutElement>().flexibleWidth = 0;
         return image;
     }
 
-    private static GameObject CreateRowBase(string name, float height)
+    private static GameObject CreateRowBase(string name, float height, bool horizontal)
     {
         GameObject root = new GameObject(name);
         Image image = root.AddComponent<Image>();
         image.color = new Color(0.12f, 0.15f, 0.22f, 1f);
+        image.raycastTarget = false;
 
-        VerticalLayoutGroup layout = root.AddComponent<VerticalLayoutGroup>();
-        layout.padding = new RectOffset(12, 12, 10, 10);
-        layout.spacing = 4;
-        layout.childControlWidth = true;
-        layout.childForceExpandWidth = true;
-        layout.childControlHeight = false;
-        layout.childForceExpandHeight = false;
+        if (horizontal)
+        {
+            HorizontalLayoutGroup layout = root.AddComponent<HorizontalLayoutGroup>();
+            layout.padding = new RectOffset(12, 12, 10, 10);
+            layout.spacing = 10;
+            layout.childControlWidth = true;
+            layout.childForceExpandWidth = true;
+            layout.childControlHeight = true;
+            layout.childForceExpandHeight = true;
+        }
+        else
+        {
+            VerticalLayoutGroup layout = root.AddComponent<VerticalLayoutGroup>();
+            layout.padding = new RectOffset(12, 12, 10, 10);
+            layout.spacing = 4;
+            layout.childControlWidth = true;
+            layout.childForceExpandWidth = true;
+            layout.childControlHeight = false;
+            layout.childForceExpandHeight = false;
+        }
 
         AddLayoutElement(root, height);
         return root;

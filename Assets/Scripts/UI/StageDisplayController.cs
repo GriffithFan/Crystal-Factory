@@ -50,11 +50,13 @@ public class StageDisplayController : MonoBehaviour
             backgroundImage.sprite = backgroundSprite;
             backgroundImage.color = backgroundSprite == null ? primaryColor : Color.white;
             backgroundImage.preserveAspect = false;
+            backgroundImage.raycastTarget = false;
         }
 
         if (accentImage != null && ColorUtility.TryParseHtmlString(stage.accentColor, out Color accentColor))
         {
             accentImage.color = accentColor;
+            accentImage.raycastTarget = false;
         }
     }
 }

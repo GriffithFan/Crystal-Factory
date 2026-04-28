@@ -92,6 +92,9 @@ Tema recomendado actual: **Fabrica de Cristales Cosmica**.
 - Ajustadas proporciones del prototipo: cristal mas grande, halos no rectangulares, botones menos saturados y mejor uso del alto vertical.
 - El generador usa `crystal_main` y el fondo de etapa 1 si los sprites ya fueron importados por Unity.
 - `ArtSpritePostprocessor` configura automaticamente los PNG bajo `Assets/Resources/Art/` como sprites 2D/UI.
+- El boton principal vuelve a usar cristal procedural hasta tener un cristal IA con transparencia real; esto evita el rectangulo de fondo.
+- Graficos decorativos del fondo, halos, pedestal y textos dejaron de capturar toques para mejorar la respuesta en mobile.
+- HUD ahora guia el primer objetivo: tocar 10 veces y comprar Pulidor Manual.
 
 ### Direccion visual/lore
 
