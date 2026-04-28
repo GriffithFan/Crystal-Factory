@@ -158,7 +158,10 @@ public static class PrototypeSceneBuilder
         GameObject backgroundObject = new GameObject("DynamicBackground");
         backgroundObject.transform.SetParent(parent, false);
         Image image = backgroundObject.AddComponent<Image>();
-        image.color = new Color(0.06f, 0.09f, 0.15f, 1f);
+        Sprite backgroundSprite = Resources.Load<Sprite>("Art/Backgrounds/bg_sleeping_fragment");
+        image.sprite = backgroundSprite;
+        image.color = backgroundSprite == null ? new Color(0.06f, 0.09f, 0.15f, 1f) : Color.white;
+        image.preserveAspect = false;
 
         RectTransform rect = backgroundObject.GetComponent<RectTransform>();
         rect.anchorMin = Vector2.zero;
@@ -303,14 +306,27 @@ public static class PrototypeSceneBuilder
 
         GameObject crystalObject = new GameObject("CrystalGem");
         crystalObject.transform.SetParent(buttonObject.transform, false);
-        CrystalGraphic crystal = crystalObject.AddComponent<CrystalGraphic>();
+        Sprite crystalSprite = Resources.Load<Sprite>("Art/Crystals/crystal_main");
+        Graphic crystalGraphic;
+        if (crystalSprite != null)
+        {
+            Image crystalImage = crystalObject.AddComponent<Image>();
+            crystalImage.sprite = crystalSprite;
+            crystalImage.preserveAspect = true;
+            crystalGraphic = crystalImage;
+        }
+        else
+        {
+            crystalGraphic = crystalObject.AddComponent<CrystalGraphic>();
+        }
+
         RectTransform crystalRect = crystalObject.GetComponent<RectTransform>();
-        crystalRect.anchorMin = new Vector2(0.28f, 0.12f);
-        crystalRect.anchorMax = new Vector2(0.72f, 0.9f);
+        crystalRect.anchorMin = new Vector2(0.18f, 0.06f);
+        crystalRect.anchorMax = new Vector2(0.82f, 0.92f);
         crystalRect.offsetMin = Vector2.zero;
         crystalRect.offsetMax = Vector2.zero;
 
-        button.targetGraphic = crystal;
+        button.targetGraphic = crystalGraphic;
         SetObjectReference(pulse, "target", crystalObject.transform);
         return button;
     }
@@ -446,8 +462,9 @@ public static class PrototypeSceneBuilder
 
     private static UpgradeButtonView CreateUpgradeButtonPrefab()
     {
-        GameObject root = CreateRowBase("UpgradeButtonView", 178);
+        GameObject root = CreateRowBase("UpgradeButtonView", 224);
         UpgradeButtonView view = root.AddComponent<UpgradeButtonView>();
+        Image iconImage = CreateIconImage("IconImage", root.transform, 58);
         TMP_Text nameText = CreateText("NameText", root.transform, "Upgrade", 18, 28, TextAlignmentOptions.Left);
         TMP_Text descriptionText = CreateText("DescriptionText", root.transform, "Description", 14, 40, TextAlignmentOptions.Left);
         TMP_Text levelText = CreateText("LevelText", root.transform, "Nivel 0", 14, 24, TextAlignmentOptions.Left);
@@ -458,6 +475,7 @@ public static class PrototypeSceneBuilder
         SetObjectReference(view, "descriptionText", descriptionText);
         SetObjectReference(view, "levelText", levelText);
         SetObjectReference(view, "costText", costText);
+        SetObjectReference(view, "iconImage", iconImage);
         SetObjectReference(view, "buyButton", buyButton);
 
         GameObject prefab = PrefabUtility.SaveAsPrefabAsset(root, UpgradeButtonPrefabPath);
@@ -501,6 +519,20 @@ public static class PrototypeSceneBuilder
         GameObject prefab = PrefabUtility.SaveAsPrefabAsset(root, FloatingTextPrefabPath);
         Object.DestroyImmediate(root);
         return prefab.GetComponent<TMP_Text>();
+    }
+
+    private static Image CreateIconImage(string name, Transform parent, float height)
+    {
+        GameObject iconObject = new GameObject(name);
+        iconObject.transform.SetParent(parent, false);
+        Image image = iconObject.AddComponent<Image>();
+        image.color = Color.white;
+        image.preserveAspect = true;
+
+        RectTransform rect = iconObject.GetComponent<RectTransform>();
+        rect.sizeDelta = new Vector2(0, height);
+        AddLayoutElement(iconObject, height);
+        return image;
     }
 
     private static GameObject CreateRowBase(string name, float height)

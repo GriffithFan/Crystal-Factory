@@ -13,6 +13,7 @@ public class UpgradeDefinition
     public double coinsPerSecondBonus;
     public double globalMultiplierBonus;
     public int unlockAtTotalCoins;
+    public string iconResource;
 }
 
 [Serializable]

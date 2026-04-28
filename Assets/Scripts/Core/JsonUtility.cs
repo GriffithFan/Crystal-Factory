@@ -104,7 +104,8 @@ public static class JsonUtility
                 clickPowerBonus = GetDouble(item, "clickPowerBonus", 0),
                 coinsPerSecondBonus = GetDouble(item, "coinsPerSecondBonus", 0),
                 globalMultiplierBonus = GetDouble(item, "globalMultiplierBonus", 0),
-                unlockAtTotalCoins = GetInt(item, "unlockAtTotalCoins", 0)
+                unlockAtTotalCoins = GetInt(item, "unlockAtTotalCoins", 0),
+                iconResource = GetString(item, "iconResource", string.Empty)
             });
         }
 
@@ -145,7 +146,8 @@ public static class JsonUtility
                 unlockAtTotalCoins = GetDouble(item, "unlockAtTotalCoins", 0),
                 visualMood = GetString(item, "visualMood", string.Empty),
                 primaryColor = GetString(item, "primaryColor", "#101827"),
-                accentColor = GetString(item, "accentColor", "#26D9FF")
+                accentColor = GetString(item, "accentColor", "#26D9FF"),
+                backgroundResource = GetString(item, "backgroundResource", string.Empty)
             });
         }
 

@@ -76,6 +76,8 @@ Tema recomendado actual: **Fabrica de Cristales Cosmica**.
 - `UpgradeCatalog.json`: 10 upgrades iniciales.
 - `MissionCatalog.json`: 5 misiones iniciales.
 - `StageCatalog.json`: 6 etapas narrativas con paleta visual y lore.
+- `StageCatalog.json`: ahora vincula cada etapa con su fondo en `Assets/Resources/Art/Backgrounds/`.
+- `UpgradeCatalog.json`: ahora vincula mejoras con iconos en `Assets/Resources/Art/Upgrades/` o `Assets/Resources/Art/Crystals/`.
 
 ### Automatizacion Unity Editor
 
@@ -88,13 +90,17 @@ Tema recomendado actual: **Fabrica de Cristales Cosmica**.
 - Crea fondo dinamico, texto de lore, pulso de cristal y texto flotante.
 - Generador actualizado a layout mobile-first con marco 9:16, camara y paneles apilados.
 - Ajustadas proporciones del prototipo: cristal mas grande, halos no rectangulares, botones menos saturados y mejor uso del alto vertical.
+- El generador usa `crystal_main` y el fondo de etapa 1 si los sprites ya fueron importados por Unity.
+- `ArtSpritePostprocessor` configura automaticamente los PNG bajo `Assets/Resources/Art/` como sprites 2D/UI.
 
 ### Direccion visual/lore
 
 - `Docs/ArtAndLoreDirection.md` creado.
 - `Docs/AIPrompts.md` creado con prompts para fondos, cristal, mascota, iconos, cofres y material de Google Play.
+- `Docs/AssetInventory.md` creado para rastrear arte importado y pendientes.
 - Carpetas `Assets/Art/` y `Assets/Audio/` preparadas.
 - Prompts IA definidos para cristal, fondos e iconos.
+- Imagenes IA iniciales ordenadas en `Assets/Resources/Art/` para carga runtime.
 
 ## Estado actual
 

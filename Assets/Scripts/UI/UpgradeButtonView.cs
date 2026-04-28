@@ -8,6 +8,7 @@ public class UpgradeButtonView : MonoBehaviour
     [SerializeField] private TMP_Text descriptionText;
     [SerializeField] private TMP_Text levelText;
     [SerializeField] private TMP_Text costText;
+    [SerializeField] private Image iconImage;
     [SerializeField] private Button buyButton;
 
     private UpgradeDefinition upgrade;
@@ -79,6 +80,14 @@ public class UpgradeButtonView : MonoBehaviour
         if (costText != null)
         {
             costText.text = unlocked ? NumberFormatter.Format(cost) : "Requiere " + NumberFormatter.Format(upgrade.unlockAtTotalCoins);
+        }
+
+        if (iconImage != null)
+        {
+            Sprite icon = string.IsNullOrEmpty(upgrade.iconResource) ? null : Resources.Load<Sprite>(upgrade.iconResource);
+            iconImage.sprite = icon;
+            iconImage.enabled = icon != null;
+            iconImage.preserveAspect = true;
         }
 
         if (buyButton != null)

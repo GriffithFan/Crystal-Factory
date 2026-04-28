@@ -7,7 +7,8 @@
       "unlockAtTotalCoins": 0,
       "visualMood": "Laboratorio oscuro, cristal tenue, inicio misterioso",
       "primaryColor": "#101827",
-      "accentColor": "#26D9FF"
+      "accentColor": "#26D9FF",
+      "backgroundResource": "Art/Backgrounds/bg_sleeping_fragment"
     },
     {
       "id": "first_resonance",
@@ -16,7 +17,8 @@
       "unlockAtTotalCoins": 500,
       "visualMood": "Primer brillo, mesa energizada, particulas suaves",
       "primaryColor": "#102B3A",
-      "accentColor": "#39F5C6"
+      "accentColor": "#39F5C6",
+      "backgroundResource": "Art/Backgrounds/bg_first_resonance"
     },
     {
       "id": "automatic_workshop",
@@ -25,7 +27,8 @@
       "unlockAtTotalCoins": 5000,
       "visualMood": "Maquinas pequenas, luces tecnicas, progreso visible",
       "primaryColor": "#172238",
-      "accentColor": "#FFD166"
+      "accentColor": "#FFD166",
+      "backgroundResource": "Art/Backgrounds/bg_automatic_workshop"
     },
     {
       "id": "portal_core",
@@ -34,7 +37,8 @@
       "unlockAtTotalCoins": 50000,
       "visualMood": "Portal circular, energia cosmica, escala mayor",
       "primaryColor": "#1D1833",
-      "accentColor": "#B86BFF"
+      "accentColor": "#B86BFF",
+      "backgroundResource": "Art/Backgrounds/bg_portal_core"
     },
     {
       "id": "orbital_foundry",
@@ -43,7 +47,8 @@
       "unlockAtTotalCoins": 500000,
       "visualMood": "Orbita, drones, fabrica espacial, recompensa grande",
       "primaryColor": "#09111F",
-      "accentColor": "#FF9F1C"
+      "accentColor": "#FF9F1C",
+      "backgroundResource": "Art/Backgrounds/bg_orbital_foundry"
     },
     {
       "id": "galactic_engine",
@@ -52,7 +57,8 @@
       "unlockAtTotalCoins": 5000000,
       "visualMood": "Galaxia, reactor enorme, climax visual",
       "primaryColor": "#140F26",
-      "accentColor": "#F72585"
+      "accentColor": "#F72585",
+      "backgroundResource": "Art/Backgrounds/bg_galactic_engine"
     }
   ]
 }

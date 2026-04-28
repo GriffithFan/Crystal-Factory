@@ -46,7 +46,10 @@ public class StageDisplayController : MonoBehaviour
 
         if (backgroundImage != null && ColorUtility.TryParseHtmlString(stage.primaryColor, out Color primaryColor))
         {
-            backgroundImage.color = primaryColor;
+            Sprite backgroundSprite = string.IsNullOrEmpty(stage.backgroundResource) ? null : Resources.Load<Sprite>(stage.backgroundResource);
+            backgroundImage.sprite = backgroundSprite;
+            backgroundImage.color = backgroundSprite == null ? primaryColor : Color.white;
+            backgroundImage.preserveAspect = false;
         }
 
         if (accentImage != null && ColorUtility.TryParseHtmlString(stage.accentColor, out Color accentColor))

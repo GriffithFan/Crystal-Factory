@@ -196,10 +196,13 @@ Vertical mobile game promotional background, crystal factory idle clicker, glowi
 
 Guarda los archivos en:
 
-- `Assets/Art/Backgrounds/`
-- `Assets/Art/Icons/`
-- `Assets/Art/Machines/`
-- `Assets/Art/UI/`
+- `Assets/Resources/Art/Backgrounds/`
+- `Assets/Resources/Art/Crystals/`
+- `Assets/Resources/Art/Characters/`
+- `Assets/Resources/Art/Upgrades/`
+- `Assets/Resources/Art/UI/`
+
+El juego carga estos sprites con `Resources.Load`, asi que mantenlos dentro de `Assets/Resources/Art/`.
 
 Despues en Unity:
 

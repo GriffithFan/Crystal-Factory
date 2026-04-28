@@ -28,6 +28,7 @@ Crear un MVP monetizable de forma sostenible:
 - `Docs/DevelopmentLog.md`: registro vivo de progreso y contexto.
 - `Docs/ArtAndLoreDirection.md`: guia visual, lore y prompts IA.
 - `Docs/AIPrompts.md`: prompts listos para generar imagenes IA del juego.
+- `Docs/AssetInventory.md`: assets generados, rutas finales y pendientes.
 - `Assets/Resources/GameData/UpgradeCatalog.json`: economia inicial editable.
 - `Assets/Resources/GameData/MissionCatalog.json`: misiones iniciales editables.
 - `Assets/Resources/GameData/StageCatalog.json`: etapas narrativas y paleta visual.

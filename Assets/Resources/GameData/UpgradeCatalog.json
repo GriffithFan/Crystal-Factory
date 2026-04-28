@@ -10,7 +10,8 @@
       "clickPowerBonus": 1,
       "coinsPerSecondBonus": 0,
       "globalMultiplierBonus": 0,
-      "unlockAtTotalCoins": 0
+      "unlockAtTotalCoins": 0,
+      "iconResource": "Art/Upgrades/icon_manual_polisher"
     },
     {
       "id": "resonance_hammer",
@@ -22,7 +23,8 @@
       "clickPowerBonus": 3,
       "coinsPerSecondBonus": 0,
       "globalMultiplierBonus": 0,
-      "unlockAtTotalCoins": 40
+      "unlockAtTotalCoins": 40,
+      "iconResource": "Art/Upgrades/icon_resonance_hammer"
     },
     {
       "id": "energy_table",
@@ -34,7 +36,8 @@
       "clickPowerBonus": 0,
       "coinsPerSecondBonus": 1,
       "globalMultiplierBonus": 0,
-      "unlockAtTotalCoins": 100
+      "unlockAtTotalCoins": 100,
+      "iconResource": "Art/Upgrades/icon_energy_table"
     },
     {
       "id": "mini_mining_robot",
@@ -46,7 +49,8 @@
       "clickPowerBonus": 0,
       "coinsPerSecondBonus": 5,
       "globalMultiplierBonus": 0,
-      "unlockAtTotalCoins": 500
+      "unlockAtTotalCoins": 500,
+      "iconResource": "Art/Upgrades/icon_mini_mining_robot"
     },
     {
       "id": "light_reactor",
@@ -58,7 +62,8 @@
       "clickPowerBonus": 0,
       "coinsPerSecondBonus": 0,
       "globalMultiplierBonus": 0.1,
-      "unlockAtTotalCoins": 1500
+      "unlockAtTotalCoins": 1500,
+      "iconResource": "Art/Upgrades/icon_light_reactor"
     },
     {
       "id": "crystal_tunnel",
@@ -70,7 +75,8 @@
       "clickPowerBonus": 0,
       "coinsPerSecondBonus": 25,
       "globalMultiplierBonus": 0,
-      "unlockAtTotalCoins": 5000
+      "unlockAtTotalCoins": 5000,
+      "iconResource": "Art/Upgrades/icon_mineral_portal"
     },
     {
       "id": "cosmic_drone",
@@ -82,7 +88,8 @@
       "clickPowerBonus": 0,
       "coinsPerSecondBonus": 100,
       "globalMultiplierBonus": 0,
-      "unlockAtTotalCoins": 15000
+      "unlockAtTotalCoins": 15000,
+      "iconResource": "Art/Upgrades/icon_mini_mining_robot"
     },
     {
       "id": "amplifier_prism",
@@ -94,7 +101,8 @@
       "clickPowerBonus": 50,
       "coinsPerSecondBonus": 0,
       "globalMultiplierBonus": 0,
-      "unlockAtTotalCoins": 40000
+      "unlockAtTotalCoins": 40000,
+      "iconResource": "Art/Crystals/crystal_premium"
     },
     {
       "id": "mineral_portal",
@@ -106,7 +114,8 @@
       "clickPowerBonus": 0,
       "coinsPerSecondBonus": 500,
       "globalMultiplierBonus": 0,
-      "unlockAtTotalCoins": 150000
+      "unlockAtTotalCoins": 150000,
+      "iconResource": "Art/Upgrades/icon_mineral_portal"
     },
     {
       "id": "galactic_core",
@@ -118,7 +127,8 @@
       "clickPowerBonus": 0,
       "coinsPerSecondBonus": 0,
       "globalMultiplierBonus": 1,
-      "unlockAtTotalCoins": 700000
+      "unlockAtTotalCoins": 700000,
+      "iconResource": "Art/Crystals/crystal_premium"
     }
   ]
 }

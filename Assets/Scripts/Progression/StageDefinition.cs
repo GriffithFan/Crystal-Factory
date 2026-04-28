@@ -11,6 +11,7 @@ public class StageDefinition
     public string visualMood;
     public string primaryColor;
     public string accentColor;
+    public string backgroundResource;
 }
 
 [Serializable]
