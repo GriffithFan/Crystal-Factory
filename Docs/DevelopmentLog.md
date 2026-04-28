@@ -95,6 +95,8 @@ Tema recomendado actual: **Fabrica de Cristales Cosmica**.
 - El boton principal vuelve a usar cristal procedural hasta tener un cristal IA con transparencia real; esto evita el rectangulo de fondo.
 - Graficos decorativos del fondo, halos, pedestal y textos dejaron de capturar toques para mejorar la respuesta en mobile.
 - HUD ahora guia el primer objetivo: tocar 10 veces y comprar Pulidor Manual.
+- Layout del prototipo reorganizado en zonas claras: panel superior de metricas, boton central explicito, panel de objetivo, acciones y listas inferiores.
+- Se agrego una capa oscura de legibilidad sobre el fondo para que el arte no compita con textos y controles.
 
 ### Direccion visual/lore
 

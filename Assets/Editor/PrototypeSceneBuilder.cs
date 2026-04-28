@@ -27,32 +27,38 @@ public static class PrototypeSceneBuilder
 
         Canvas canvas = CreateCanvas();
         Image backgroundImage = CreateBackground(canvas.transform);
+        CreateDimOverlay(canvas.transform);
         CreateAmbientGlow("TopAmbientGlow", canvas.transform, new Vector2(-0.18f, 0.7f), new Vector2(0.82f, 1.16f), new Color(0.1f, 0.7f, 1f, 0.18f));
         CreateAmbientGlow("BottomAmbientGlow", canvas.transform, new Vector2(0.12f, -0.12f), new Vector2(1.18f, 0.36f), new Color(0.45f, 0.14f, 0.9f, 0.12f));
         Image energyBandImage = CreateEnergyBand(canvas.transform);
         GameObject phoneRoot = CreatePhoneRoot(canvas.transform);
         GameObject mainLayout = CreateMainLayout(phoneRoot.transform);
 
-        TMP_Text titleText = CreateText("GameTitleText", mainLayout.transform, "CRYSTAL FACTORY", 46, 54, TextAlignmentOptions.Center);
+        GameObject topPanel = CreateContainerPanel("TopHudPanel", mainLayout.transform, 276, new Color(0.035f, 0.055f, 0.09f, 0.86f));
+        TMP_Text titleText = CreateText("GameTitleText", topPanel.transform, "CRYSTAL FACTORY", 40, 46, TextAlignmentOptions.Center);
         titleText.color = new Color(0.72f, 0.96f, 1f);
-        TMP_Text stageTitleText = CreateText("StageTitleText", mainLayout.transform, "Fragmento Dormido", 26, 34, TextAlignmentOptions.Center);
-        TMP_Text loreText = CreateText("LoreText", mainLayout.transform, "Toca el cristal, gana cristales y compra mejoras para automatizar la fabrica.", 22, 58, TextAlignmentOptions.Center);
+        TMP_Text stageTitleText = CreateText("StageTitleText", topPanel.transform, "Fragmento Dormido", 22, 28, TextAlignmentOptions.Center);
+        TMP_Text loreText = CreateText("LoreText", topPanel.transform, "Toca el cristal, gana cristales y compra mejoras para automatizar la fabrica.", 18, 48, TextAlignmentOptions.Center);
         loreText.color = new Color(0.85f, 0.9f, 0.96f);
-        TMP_Text coinsText = CreateText("CoinsText", mainLayout.transform, "0", 78, 78, TextAlignmentOptions.Center);
-        TMP_Text cpsText = CreateText("CoinsPerSecondText", mainLayout.transform, "0/s", 26, 30, TextAlignmentOptions.Center);
-        TMP_Text clickPowerText = CreateText("ClickPowerText", mainLayout.transform, "+1 por toque", 21, 28, TextAlignmentOptions.Center);
+
+        GameObject statsRow = CreateHorizontalGroup("StatsRow", topPanel.transform, 94);
+        TMP_Text coinsText = CreateMetricBlock("CoinsMetric", statsRow.transform, "CRISTALES", "0", 34);
+        TMP_Text cpsText = CreateMetricBlock("CpsMetric", statsRow.transform, "AUTO", "0/s", 24);
+        TMP_Text clickPowerText = CreateMetricBlock("ClickMetric", statsRow.transform, "TOQUE", "+1", 24);
 
         Button crystalButton = CreateCrystalButton(mainLayout.transform);
-        TMP_Text statusText = CreateText("StatusText", mainLayout.transform, "Objetivo: toca el cristal 10 veces y compra tu primera mejora", 24, 58, TextAlignmentOptions.Center);
+
+        GameObject statusPanel = CreateContainerPanel("ObjectivePanel", mainLayout.transform, 82, new Color(0.11f, 0.08f, 0.02f, 0.88f));
+        TMP_Text statusText = CreateText("StatusText", statusPanel.transform, "Objetivo: toca el cristal 10 veces y compra Pulidor Manual", 22, 58, TextAlignmentOptions.Center);
         statusText.color = new Color(1f, 0.9f, 0.48f);
 
-        GameObject actionRow = CreateHorizontalGroup("ActionRow", mainLayout.transform, 74);
-        Button dailyRewardButton = CreateButton("DailyRewardButton", actionRow.transform, "Diaria", new Color(0.45f, 0.31f, 0.08f), 22, 74);
-        Button rewardedAdButton = CreateButton("RewardedAdButton", actionRow.transform, "Boost", new Color(0.08f, 0.35f, 0.25f), 22, 74);
+        GameObject actionRow = CreateHorizontalGroup("ActionRow", mainLayout.transform, 72);
+        Button dailyRewardButton = CreateButton("DailyRewardButton", actionRow.transform, "Recompensa", new Color(0.45f, 0.31f, 0.08f), 20, 72);
+        Button rewardedAdButton = CreateButton("RewardedAdButton", actionRow.transform, "Boost x2", new Color(0.08f, 0.35f, 0.25f), 20, 72);
 
-        GameObject listsColumn = CreateVerticalGroup("ListsColumn", mainLayout.transform, 700, 12);
-        GameObject shopPanel = CreatePanel("ShopPanel", listsColumn.transform, "MEJORAS", 390);
-        Transform shopContent = CreateScrollContent(shopPanel.transform, "ShopScrollView", 316);
+        GameObject listsColumn = CreateVerticalGroup("ListsColumn", mainLayout.transform, 820, 12);
+        GameObject shopPanel = CreatePanel("ShopPanel", listsColumn.transform, "MEJORAS", 510);
+        Transform shopContent = CreateScrollContent(shopPanel.transform, "ShopScrollView", 436);
 
         GameObject missionsPanel = CreatePanel("MissionsPanel", listsColumn.transform, "MISIONES", 298);
         Transform missionsContent = CreateScrollContent(missionsPanel.transform, "MissionsScrollView", 224);
@@ -189,6 +195,21 @@ public static class PrototypeSceneBuilder
         return image;
     }
 
+    private static void CreateDimOverlay(Transform parent)
+    {
+        GameObject overlayObject = new GameObject("ReadabilityDimOverlay");
+        overlayObject.transform.SetParent(parent, false);
+        Image image = overlayObject.AddComponent<Image>();
+        image.color = new Color(0f, 0.01f, 0.025f, 0.42f);
+        image.raycastTarget = false;
+
+        RectTransform rect = overlayObject.GetComponent<RectTransform>();
+        rect.anchorMin = Vector2.zero;
+        rect.anchorMax = Vector2.one;
+        rect.offsetMin = Vector2.zero;
+        rect.offsetMax = Vector2.zero;
+    }
+
     private static void CreateAmbientGlow(string name, Transform parent, Vector2 anchorMin, Vector2 anchorMax, Color centerColor)
     {
         GameObject glowObject = CreateEllipse(name, parent, centerColor, new Color(centerColor.r, centerColor.g, centerColor.b, 0f));
@@ -229,7 +250,7 @@ public static class PrototypeSceneBuilder
         rect.offsetMax = new Vector2(-42, -36);
 
         VerticalLayoutGroup layout = layoutObject.AddComponent<VerticalLayoutGroup>();
-        layout.spacing = 9;
+        layout.spacing = 8;
         layout.childAlignment = TextAnchor.UpperCenter;
         layout.childControlHeight = false;
         layout.childControlWidth = true;
@@ -280,8 +301,8 @@ public static class PrototypeSceneBuilder
         GameObject buttonObject = new GameObject("CrystalButton");
         buttonObject.transform.SetParent(parent, false);
         RectTransform rect = buttonObject.AddComponent<RectTransform>();
-        rect.sizeDelta = new Vector2(0, 390);
-        AddLayoutElement(buttonObject, 390);
+        rect.sizeDelta = new Vector2(0, 342);
+        AddLayoutElement(buttonObject, 342);
 
         Image hitArea = buttonObject.AddComponent<Image>();
         hitArea.color = new Color(1f, 1f, 1f, 0.001f);
@@ -318,12 +339,49 @@ public static class PrototypeSceneBuilder
 
         RectTransform crystalRect = crystalObject.GetComponent<RectTransform>();
         crystalRect.anchorMin = new Vector2(0.29f, 0.13f);
-        crystalRect.anchorMax = new Vector2(0.71f, 0.9f);
+        crystalRect.anchorMax = new Vector2(0.71f, 0.86f);
         crystalRect.offsetMin = Vector2.zero;
         crystalRect.offsetMax = Vector2.zero;
 
+        TMP_Text tapLabel = CreateText("TapLabel", buttonObject.transform, "TOCAR CRISTAL", 24, 44, TextAlignmentOptions.Center);
+        tapLabel.color = new Color(1f, 0.93f, 0.52f);
+        RectTransform tapLabelRect = tapLabel.GetComponent<RectTransform>();
+        tapLabelRect.anchorMin = new Vector2(0.18f, 0.02f);
+        tapLabelRect.anchorMax = new Vector2(0.82f, 0.16f);
+        tapLabelRect.offsetMin = Vector2.zero;
+        tapLabelRect.offsetMax = Vector2.zero;
+
         SetObjectReference(pulse, "target", crystalObject.transform);
         return button;
+    }
+
+    private static GameObject CreateContainerPanel(string name, Transform parent, float height, Color color)
+    {
+        GameObject panel = new GameObject(name);
+        panel.transform.SetParent(parent, false);
+        Image image = panel.AddComponent<Image>();
+        image.color = color;
+        image.raycastTarget = false;
+        AddLayoutElement(panel, height);
+
+        VerticalLayoutGroup layout = panel.AddComponent<VerticalLayoutGroup>();
+        layout.padding = new RectOffset(18, 18, 12, 12);
+        layout.spacing = 5;
+        layout.childControlWidth = true;
+        layout.childForceExpandWidth = true;
+        layout.childControlHeight = false;
+        layout.childForceExpandHeight = false;
+        return panel;
+    }
+
+    private static TMP_Text CreateMetricBlock(string name, Transform parent, string label, string value, int valueSize)
+    {
+        GameObject block = CreateContainerPanel(name, parent, 94, new Color(0.02f, 0.09f, 0.13f, 0.9f));
+        TMP_Text labelText = CreateText("Label", block.transform, label, 13, 22, TextAlignmentOptions.Center);
+        labelText.color = new Color(0.62f, 0.82f, 0.88f);
+        TMP_Text valueText = CreateText("Value", block.transform, value, valueSize, 44, TextAlignmentOptions.Center);
+        valueText.color = Color.white;
+        return valueText;
     }
 
     private static GameObject CreateEllipse(string name, Transform parent, Color centerColor, Color edgeColor)

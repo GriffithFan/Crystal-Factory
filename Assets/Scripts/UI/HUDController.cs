@@ -146,7 +146,7 @@ public class HUDController : MonoBehaviour
     {
         if (clickPowerText != null)
         {
-            clickPowerText.text = "+" + NumberFormatter.Format(clickPower) + " por toque";
+            clickPowerText.text = "+" + NumberFormatter.Format(clickPower);
         }
     }
 
