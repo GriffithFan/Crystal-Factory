@@ -2,6 +2,8 @@
 
 Base inicial de un juego mobile idle clicker 2D para Android hecho en Unity.
 
+Premisa actual: el jugador reactiva la **Estacion Aurora**, una fabrica orbital apagada que debe producir cristales de energia, cumplir pedidos, restaurar sectores y convertirse en una red energetica rentable.
+
 ## Objetivo
 
 Crear un MVP monetizable de forma sostenible:
@@ -14,6 +16,8 @@ Crear un MVP monetizable de forma sostenible:
 - Recompensa diaria.
 - Etapas narrativas con lore desbloqueable.
 - Misiones de corto plazo.
+- Menu principal, pantalla de historia, pantalla de carga y tienda simulada.
+- Popups de recompensas, pedidos completados y sectores restaurados.
 - Boost temporal por rewarded ad.
 - Rewarded ads simulados.
 - IAP simulados para reemplazar luego con Google Play Billing.
@@ -29,6 +33,7 @@ Crear un MVP monetizable de forma sostenible:
 - `Docs/ArtAndLoreDirection.md`: guia visual, lore y prompts IA.
 - `Docs/AIPrompts.md`: prompts listos para generar imagenes IA del juego.
 - `Docs/AssetInventory.md`: assets generados, rutas finales y pendientes.
+- `Docs/VerticalSlicePlan.md`: direccion actual de gameplay, historia y monetizacion.
 - `Assets/Resources/GameData/UpgradeCatalog.json`: economia inicial editable.
 - `Assets/Resources/GameData/MissionCatalog.json`: misiones iniciales editables.
 - `Assets/Resources/GameData/StageCatalog.json`: etapas narrativas y paleta visual.
@@ -37,14 +42,14 @@ Crear un MVP monetizable de forma sostenible:
 
 Lograr en Unity que el jugador pueda:
 
-1. Tocar el cristal.
-2. Ganar cristales.
-3. Comprar upgrades.
-4. Generar cristales por segundo.
-5. Cerrar y abrir el juego.
-6. Recibir progreso offline.
-7. Desbloquear etapas narrativas.
-8. Completar y reclamar misiones.
+1. Entrar desde un menu principal con contexto narrativo.
+2. Ver pantalla de carga antes de la fabrica.
+3. Tocar el cristal para despertar el nucleo.
+4. Ganar cristales y comprar upgrades.
+5. Cumplir pedidos de energia y reclamar recompensas.
+6. Desbloquear sectores narrativos de Aurora.
+7. Usar recompensas diarias y boosts opcionales.
+8. Probar tienda simulada de packs y Remove Ads.
 
 Cuando este hito funcione, el siguiente paso es crear una UI visualmente atractiva y reemplazar los stubs de ads/IAP por SDKs reales.
 

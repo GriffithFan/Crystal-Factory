@@ -2,40 +2,40 @@
   "missions": [
     {
       "id": "tap_50",
-      "displayName": "Primer brillo",
-      "description": "Toca el cristal 50 veces.",
+      "displayName": "Pedido: encender el nucleo",
+      "description": "Toca el cristal 50 veces para dar energia inicial a Aurora.",
       "type": 0,
       "target": 50,
       "rewardCoins": 150
     },
     {
       "id": "buy_3_upgrades",
-      "displayName": "Pequena expansion",
-      "description": "Compra 3 mejoras.",
+      "displayName": "Pedido: montar el taller",
+      "description": "Compra 3 mejoras para que la fabrica deje de depender solo de tus toques.",
       "type": 1,
       "target": 3,
       "rewardCoins": 300
     },
     {
       "id": "earn_1000_coins",
-      "displayName": "Cristales en marcha",
-      "description": "Gana 1000 cristales.",
+      "displayName": "Pedido: primer envio",
+      "description": "Produce 1000 cristales para enviar energia al primer sector de la estacion.",
       "type": 4,
       "target": 1000,
       "rewardCoins": 500
     },
     {
       "id": "watch_1_rewarded_ad",
-      "displayName": "Impulso voluntario",
-      "description": "Mira 1 anuncio recompensado.",
+      "displayName": "Pedido opcional: impulso comercial",
+      "description": "Activa 1 Boost x2 para acelerar produccion sin cortar el progreso normal.",
       "type": 2,
       "target": 1,
       "rewardCoins": 750
     },
     {
       "id": "claim_daily_reward",
-      "displayName": "Regreso valioso",
-      "description": "Reclama 1 recompensa diaria.",
+      "displayName": "Pedido: rutina diaria",
+      "description": "Reclama 1 recompensa diaria para mantener la estacion alimentada.",
       "type": 3,
       "target": 1,
       "rewardCoins": 400

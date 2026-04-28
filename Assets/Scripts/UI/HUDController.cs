@@ -44,7 +44,7 @@ public class HUDController : MonoBehaviour
     private void Start()
     {
         RefreshDailyRewardButton();
-        SetStatus("Objetivo: toca el cristal 10 veces y compra Pulidor Manual.");
+        SetStatus("Pedido activo: despierta el nucleo con 10 toques y compra Pulidor Manual.");
     }
 
     private void OnDisable()
@@ -84,11 +84,11 @@ public class HUDController : MonoBehaviour
 
         if (sessionCrystalTaps < 10)
         {
-            SetStatus("Bien. Sigue tocando el cristal: " + sessionCrystalTaps + "/10");
+            SetStatus("Energia inicial: " + sessionCrystalTaps + "/10. Sigue tocando para encender Aurora.");
         }
         else
         {
-            SetStatus("Ahora compra Pulidor Manual en MEJORAS para producir mas por toque.");
+            SetStatus("Nucleo estable. Compra Pulidor Manual para aumentar el valor de cada envio.");
         }
     }
 
@@ -123,7 +123,7 @@ public class HUDController : MonoBehaviour
         }
 
         GameManager.Instance.Ads.ShowRewardedAd();
-        SetStatus("Recompensa de anuncio recibida.");
+        SetStatus("Boost comercial recibido. Usalo para acelerar pedidos, no para reemplazar mejoras.");
     }
 
     private void UpdateCoins(double coins)

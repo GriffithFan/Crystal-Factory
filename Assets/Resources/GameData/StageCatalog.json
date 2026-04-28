@@ -2,8 +2,8 @@
   "stages": [
     {
       "id": "sleeping_fragment",
-      "displayName": "Fragmento Dormido",
-      "lore": "Un cristal apagado aparece en una mesa olvidada. Cada toque despierta una vibracion antigua bajo el laboratorio.",
+      "displayName": "Sector 1: Nucleo Dormido",
+      "lore": "La Estacion Aurora esta sin energia. Toca el cristal para despertar el nucleo y vender energia refinada.",
       "unlockAtTotalCoins": 0,
       "visualMood": "Laboratorio oscuro, cristal tenue, inicio misterioso",
       "primaryColor": "#101827",
@@ -12,8 +12,8 @@
     },
     {
       "id": "first_resonance",
-      "displayName": "Primera Resonancia",
-      "lore": "El cristal responde. Sus pulsos empiezan a alimentar herramientas pequenas y el laboratorio deja de parecer abandonado.",
+      "displayName": "Sector 2: Taller Encendido",
+      "lore": "El primer pedido fue aceptado. Las herramientas vuelven a funcionar y la fabrica empieza a producir sola.",
       "unlockAtTotalCoins": 500,
       "visualMood": "Primer brillo, mesa energizada, particulas suaves",
       "primaryColor": "#102B3A",
@@ -22,8 +22,8 @@
     },
     {
       "id": "automatic_workshop",
-      "displayName": "Taller Automatico",
-      "lore": "Los primeros mecanismos trabajan solos. El jugador ya no solo toca: dirige una fabrica que aprende a producir mientras descansa.",
+      "displayName": "Sector 3: Linea Automatica",
+      "lore": "Los robots reparan cintas y brazos mecanicos. Tu trabajo cambia: optimizar, cumplir pedidos y reinvertir.",
       "unlockAtTotalCoins": 5000,
       "visualMood": "Maquinas pequenas, luces tecnicas, progreso visible",
       "primaryColor": "#172238",
@@ -32,8 +32,8 @@
     },
     {
       "id": "portal_core",
-      "displayName": "Nucleo del Portal",
-      "lore": "La produccion abre una grieta estable. Al otro lado hay vetas de cristal que no pertenecen a este planeta.",
+      "displayName": "Sector 4: Portal Mineral",
+      "lore": "Aurora abre un portal a vetas externas. Cada mejora aumenta el valor de tus envios.",
       "unlockAtTotalCoins": 50000,
       "visualMood": "Portal circular, energia cosmica, escala mayor",
       "primaryColor": "#1D1833",
@@ -42,8 +42,8 @@
     },
     {
       "id": "orbital_foundry",
-      "displayName": "Fundicion Orbital",
-      "lore": "La fabrica se eleva a la orbita. Robots, drones y reactores convierten polvo estelar en cristales puros.",
+      "displayName": "Sector 5: Fundicion Orbital",
+      "lore": "Los pedidos llegan desde colonias cercanas. La fabrica ya es un negocio espacial real.",
       "unlockAtTotalCoins": 500000,
       "visualMood": "Orbita, drones, fabrica espacial, recompensa grande",
       "primaryColor": "#09111F",
@@ -52,8 +52,8 @@
     },
     {
       "id": "galactic_engine",
-      "displayName": "Motor Galactico",
-      "lore": "El cristal original era una llave. La fabrica entera vibra como un motor capaz de despertar constelaciones dormidas.",
+      "displayName": "Sector 6: Motor Galactico",
+      "lore": "Aurora deja de sobrevivir y empieza a expandirse. El objetivo final es convertirla en la red energetica de la galaxia.",
       "unlockAtTotalCoins": 5000000,
       "visualMood": "Galaxia, reactor enorme, climax visual",
       "primaryColor": "#140F26",

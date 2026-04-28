@@ -8,6 +8,8 @@ Juego mobile Android hecho en Unity 2D, tipo idle clicker/incremental, pensado p
 
 Tema recomendado actual: **Fabrica de Cristales Cosmica**.
 
+Pivot actual de claridad: **Estacion Aurora**, una fabrica orbital apagada que el jugador restaura produciendo cristales de energia, cumpliendo pedidos y reactivando sectores.
+
 ## Principios de monetizacion
 
 - Primero retencion y satisfaccion del loop.
@@ -61,7 +63,8 @@ Tema recomendado actual: **Fabrica de Cristales Cosmica**.
 - `MissionPanelController`: panel de misiones.
 - `MissionRowView`: fila de mision.
 - `StageDisplayController`: muestra etapa actual, lore y colores del fondo.
-- `PopupController`: popup generico preparado.
+- `PopupController`: popup de progreso para pedidos completados, recompensas, boosts y sectores restaurados.
+- `GameFlowController`: menu principal, pantalla de historia, carga, tienda simulada y entrada a gameplay.
 
 ### Feedback visual
 
@@ -97,6 +100,11 @@ Tema recomendado actual: **Fabrica de Cristales Cosmica**.
 - HUD ahora guia el primer objetivo: tocar 10 veces y comprar Pulidor Manual.
 - Layout del prototipo reorganizado en zonas claras: panel superior de metricas, boton central explicito, panel de objetivo, acciones y listas inferiores.
 - Se agrego una capa oscura de legibilidad sobre el fondo para que el arte no compita con textos y controles.
+- Se agregaron pantallas de producto jugable: menu principal, historia, carga y tienda simulada.
+- El boton de tienda permite probar packs de cristales y Remove Ads simulados desde la propia UI.
+- Los popups ahora explican pedidos completados, cobros, recompensas diarias, boost por anuncio y sectores restaurados.
+- Misiones renombradas como pedidos de energia para que la tarea tenga sentido dentro de la fantasia de negocio.
+- Etapas renombradas como sectores de Aurora para que el progreso se entienda como restauracion de la estacion.
 
 ### Direccion visual/lore
 
@@ -109,7 +117,7 @@ Tema recomendado actual: **Fabrica de Cristales Cosmica**.
 
 ## Estado actual
 
-La logica base del MVP esta lista para compilar en Unity. Falta abrir el proyecto en Unity, dejar que compile, ejecutar el generador de escena y probar Play Mode.
+La logica base y la primera vertical slice narrativa estan listas para compilar en Unity. Hay que regenerar la escena con el menu del editor para que aparezcan las nuevas pantallas y popups.
 
 ## Proximo objetivo
 
@@ -121,6 +129,7 @@ Desde Unity:
 4. Abrir `Assets/Scenes/Game.unity` si no se abre automaticamente.
 5. Presionar Play.
 6. Probar click, upgrades, misiones, rewarded ad simulado y guardado.
+7. Probar menu principal, historia, pantalla de carga, tienda simulada y popup de pedidos.
 
 ## Riesgos tecnicos pendientes
 

@@ -35,10 +35,10 @@ public static class PrototypeSceneBuilder
         GameObject mainLayout = CreateMainLayout(phoneRoot.transform);
 
         GameObject topPanel = CreateContainerPanel("TopHudPanel", mainLayout.transform, 276, new Color(0.035f, 0.055f, 0.09f, 0.86f));
-        TMP_Text titleText = CreateText("GameTitleText", topPanel.transform, "CRYSTAL FACTORY", 40, 46, TextAlignmentOptions.Center);
+        TMP_Text titleText = CreateText("GameTitleText", topPanel.transform, "ESTACION AURORA", 40, 46, TextAlignmentOptions.Center);
         titleText.color = new Color(0.72f, 0.96f, 1f);
-        TMP_Text stageTitleText = CreateText("StageTitleText", topPanel.transform, "Fragmento Dormido", 22, 28, TextAlignmentOptions.Center);
-        TMP_Text loreText = CreateText("LoreText", topPanel.transform, "Toca el cristal, gana cristales y compra mejoras para automatizar la fabrica.", 18, 48, TextAlignmentOptions.Center);
+        TMP_Text stageTitleText = CreateText("StageTitleText", topPanel.transform, "Sector 1: Nucleo Dormido", 22, 28, TextAlignmentOptions.Center);
+        TMP_Text loreText = CreateText("LoreText", topPanel.transform, "Produce energia, cumple pedidos y restaura sectores para convertir Aurora en negocio.", 18, 48, TextAlignmentOptions.Center);
         loreText.color = new Color(0.85f, 0.9f, 0.96f);
 
         GameObject statsRow = CreateHorizontalGroup("StatsRow", topPanel.transform, 94);
@@ -49,12 +49,13 @@ public static class PrototypeSceneBuilder
         Button crystalButton = CreateCrystalButton(mainLayout.transform);
 
         GameObject statusPanel = CreateContainerPanel("ObjectivePanel", mainLayout.transform, 82, new Color(0.11f, 0.08f, 0.02f, 0.88f));
-        TMP_Text statusText = CreateText("StatusText", statusPanel.transform, "Objetivo: toca el cristal 10 veces y compra Pulidor Manual", 22, 58, TextAlignmentOptions.Center);
+        TMP_Text statusText = CreateText("StatusText", statusPanel.transform, "Pedido activo: despierta el nucleo con 10 toques y compra Pulidor Manual", 22, 58, TextAlignmentOptions.Center);
         statusText.color = new Color(1f, 0.9f, 0.48f);
 
         GameObject actionRow = CreateHorizontalGroup("ActionRow", mainLayout.transform, 72);
         Button dailyRewardButton = CreateButton("DailyRewardButton", actionRow.transform, "Recompensa", new Color(0.45f, 0.31f, 0.08f), 20, 72);
         Button rewardedAdButton = CreateButton("RewardedAdButton", actionRow.transform, "Boost x2", new Color(0.08f, 0.35f, 0.25f), 20, 72);
+        Button storeButton = CreateButton("OpenStoreButton", actionRow.transform, "Tienda", new Color(0.18f, 0.15f, 0.36f), 20, 72);
 
         GameObject listsColumn = CreateVerticalGroup("ListsColumn", mainLayout.transform, 820, 12);
         GameObject shopPanel = CreatePanel("ShopPanel", listsColumn.transform, "MEJORAS", 510);
@@ -93,6 +94,29 @@ public static class PrototypeSceneBuilder
         MissionPanelController missions = missionsPanel.AddComponent<MissionPanelController>();
         SetObjectReference(missions, "container", missionsContent);
         SetObjectReference(missions, "missionRowPrefab", missionPrefab);
+
+        GameObject mainMenuRoot = CreateMainMenu(canvas.transform, out Button startButton, out Button storyButton);
+        GameObject loadingRoot = CreateLoadingScreen(canvas.transform, out TMP_Text loadingText);
+        GameObject storyRoot = CreateStoryScreen(canvas.transform, out Button storyBackButton);
+        GameObject storeRoot = CreateStoreScreen(canvas.transform, out Button closeStoreButton, out TMP_Text storeStatusText, out Button smallPackButton, out Button mediumPackButton, out Button removeAdsButton);
+        CreateRewardPopup(canvas.transform);
+
+        GameFlowController flow = canvas.gameObject.AddComponent<GameFlowController>();
+        SetObjectReference(flow, "gameplayRoot", mainLayout);
+        SetObjectReference(flow, "mainMenuRoot", mainMenuRoot);
+        SetObjectReference(flow, "loadingRoot", loadingRoot);
+        SetObjectReference(flow, "storyRoot", storyRoot);
+        SetObjectReference(flow, "storeRoot", storeRoot);
+        SetObjectReference(flow, "loadingText", loadingText);
+        SetObjectReference(flow, "storeStatusText", storeStatusText);
+        SetObjectReference(flow, "startButton", startButton);
+        SetObjectReference(flow, "storyButton", storyButton);
+        SetObjectReference(flow, "storyBackButton", storyBackButton);
+        SetObjectReference(flow, "openStoreButton", storeButton);
+        SetObjectReference(flow, "closeStoreButton", closeStoreButton);
+        SetObjectReference(flow, "smallPackButton", smallPackButton);
+        SetObjectReference(flow, "mediumPackButton", mediumPackButton);
+        SetObjectReference(flow, "removeAdsButton", removeAdsButton);
 
         EditorSceneManager.SaveScene(scene, ScenePath);
         Selection.activeObject = canvas.gameObject;
@@ -420,6 +444,126 @@ public static class PrototypeSceneBuilder
         TMP_Text titleText = CreateText(title + "Title", panel.transform, title, 20, 34, TextAlignmentOptions.Center);
         titleText.color = new Color(0.9f, 0.96f, 1f);
         return panel;
+    }
+
+    private static GameObject CreateMainMenu(Transform parent, out Button startButton, out Button storyButton)
+    {
+        GameObject root = CreateFullScreenPanel("MainMenu", parent, new Color(0.015f, 0.035f, 0.06f, 0.96f));
+        VerticalLayoutGroup layout = root.GetComponent<VerticalLayoutGroup>();
+        layout.padding = new RectOffset(54, 54, 170, 120);
+        layout.spacing = 22;
+
+        TMP_Text title = CreateText("Title", root.transform, "ESTACION AURORA", 54, 72, TextAlignmentOptions.Center);
+        title.color = new Color(0.72f, 0.96f, 1f);
+        TMP_Text subtitle = CreateText("Subtitle", root.transform, "Una fabrica de cristales, una estacion apagada y una galaxia esperando energia.", 24, 96, TextAlignmentOptions.Center);
+        subtitle.color = new Color(0.82f, 0.9f, 0.95f);
+
+        GameObject hookPanel = CreateContainerPanel("HookPanel", root.transform, 260, new Color(0.04f, 0.1f, 0.14f, 0.92f));
+        TMP_Text hookTitle = CreateText("HookTitle", hookPanel.transform, "TU MISION", 24, 36, TextAlignmentOptions.Center);
+        hookTitle.color = new Color(1f, 0.88f, 0.45f);
+        CreateText("HookCopy", hookPanel.transform, "Reactivar sectores, cumplir pedidos de energia, mejorar maquinas y convertir Aurora en la red energetica mas rentable del espacio.", 23, 150, TextAlignmentOptions.Center);
+
+        startButton = CreateButton("StartButton", root.transform, "INICIAR FABRICA", new Color(0.06f, 0.58f, 0.78f), 26, 92);
+        storyButton = CreateButton("StoryButton", root.transform, "VER HISTORIA", new Color(0.12f, 0.15f, 0.24f), 22, 78);
+        return root;
+    }
+
+    private static GameObject CreateLoadingScreen(Transform parent, out TMP_Text loadingText)
+    {
+        GameObject root = CreateFullScreenPanel("LoadingScreen", parent, new Color(0.01f, 0.025f, 0.045f, 0.98f));
+        VerticalLayoutGroup layout = root.GetComponent<VerticalLayoutGroup>();
+        layout.padding = new RectOffset(56, 56, 390, 120);
+        layout.spacing = 20;
+
+        TMP_Text title = CreateText("LoadingTitle", root.transform, "AURORA", 52, 74, TextAlignmentOptions.Center);
+        title.color = new Color(0.72f, 0.96f, 1f);
+        loadingText = CreateText("LoadingText", root.transform, "Calibrando nucleo de cristal...", 26, 90, TextAlignmentOptions.Center);
+        loadingText.color = new Color(1f, 0.9f, 0.48f);
+        CreateText("Hint", root.transform, "Consejo: reinvierte tus cristales antes de usar boosts para multiplicar mejor.", 20, 96, TextAlignmentOptions.Center);
+        root.SetActive(false);
+        return root;
+    }
+
+    private static GameObject CreateStoryScreen(Transform parent, out Button backButton)
+    {
+        GameObject root = CreateFullScreenPanel("StoryScreen", parent, new Color(0.015f, 0.025f, 0.045f, 0.98f));
+        VerticalLayoutGroup layout = root.GetComponent<VerticalLayoutGroup>();
+        layout.padding = new RectOffset(50, 50, 110, 90);
+        layout.spacing = 18;
+
+        TMP_Text title = CreateText("StoryTitle", root.transform, "LA RAZON", 42, 60, TextAlignmentOptions.Center);
+        title.color = new Color(0.72f, 0.96f, 1f);
+        CreateText("StoryBody", root.transform, "La Estacion Aurora era una fabrica orbital que alimentaba colonias enteras. Un fallo dejo sus sectores dormidos y solo queda un nucleo de cristal capaz de reiniciarla. Cada toque produce energia. Cada mejora automatiza una parte. Cada pedido completado recupera un sector y abre una oportunidad de negocio mayor.", 24, 390, TextAlignmentOptions.Center);
+        CreateText("LoopBody", root.transform, "Loop: tocar -> comprar mejoras -> cumplir pedidos -> desbloquear sectores -> usar boosts opcionales -> volver por recompensas diarias.", 22, 150, TextAlignmentOptions.Center);
+        backButton = CreateButton("BackButton", root.transform, "VOLVER", new Color(0.08f, 0.28f, 0.36f), 22, 78);
+        root.SetActive(false);
+        return root;
+    }
+
+    private static GameObject CreateStoreScreen(Transform parent, out Button closeButton, out TMP_Text storeStatusText, out Button smallPackButton, out Button mediumPackButton, out Button removeAdsButton)
+    {
+        GameObject root = CreateFullScreenPanel("StoreScreen", parent, new Color(0.01f, 0.02f, 0.04f, 0.94f));
+        VerticalLayoutGroup layout = root.GetComponent<VerticalLayoutGroup>();
+        layout.padding = new RectOffset(48, 48, 140, 100);
+        layout.spacing = 16;
+
+        TMP_Text title = CreateText("StoreTitle", root.transform, "TIENDA DE APOYO", 40, 58, TextAlignmentOptions.Center);
+        title.color = new Color(0.72f, 0.96f, 1f);
+        CreateText("StoreCopy", root.transform, "Monetizacion pensada para sostener el juego: boosts voluntarios, packs de avance y Remove Ads. Nada bloquea la historia principal.", 22, 120, TextAlignmentOptions.Center);
+
+        smallPackButton = CreateButton("SmallPackButton", root.transform, "Pack 1K cristales", new Color(0.08f, 0.32f, 0.42f), 22, 76);
+        mediumPackButton = CreateButton("MediumPackButton", root.transform, "Pack 6K cristales", new Color(0.08f, 0.38f, 0.45f), 22, 76);
+        removeAdsButton = CreateButton("RemoveAdsButton", root.transform, "Remove Ads", new Color(0.42f, 0.29f, 0.08f), 22, 76);
+        storeStatusText = CreateText("StoreStatus", root.transform, "Compras simuladas para probar economia y conversion.", 20, 80, TextAlignmentOptions.Center);
+        storeStatusText.color = new Color(1f, 0.9f, 0.48f);
+        closeButton = CreateButton("CloseStoreButton", root.transform, "CERRAR", new Color(0.12f, 0.15f, 0.24f), 22, 76);
+        root.SetActive(false);
+        return root;
+    }
+
+    private static PopupController CreateRewardPopup(Transform parent)
+    {
+        GameObject root = CreateFullScreenPanel("RewardPopup", parent, new Color(0f, 0.01f, 0.02f, 0.68f));
+        VerticalLayoutGroup rootLayout = root.GetComponent<VerticalLayoutGroup>();
+        rootLayout.padding = new RectOffset(70, 70, 560, 0);
+        rootLayout.spacing = 12;
+
+        GameObject card = CreateContainerPanel("RewardCard", root.transform, 360, new Color(0.045f, 0.08f, 0.12f, 0.98f));
+        TMP_Text titleText = CreateText("TitleText", card.transform, "Recompensa", 34, 58, TextAlignmentOptions.Center);
+        titleText.color = new Color(1f, 0.9f, 0.48f);
+        TMP_Text messageText = CreateText("MessageText", card.transform, "Aurora recibio nuevos recursos.", 24, 150, TextAlignmentOptions.Center);
+        Button closeButton = CreateButton("CloseButton", card.transform, "CONTINUAR", new Color(0.06f, 0.58f, 0.78f), 22, 76);
+
+        PopupController popup = parent.gameObject.AddComponent<PopupController>();
+        SetObjectReference(popup, "root", root);
+        SetObjectReference(popup, "titleText", titleText);
+        SetObjectReference(popup, "messageText", messageText);
+        SetObjectReference(popup, "closeButton", closeButton);
+        root.SetActive(false);
+        return popup;
+    }
+
+    private static GameObject CreateFullScreenPanel(string name, Transform parent, Color color)
+    {
+        GameObject root = new GameObject(name);
+        root.transform.SetParent(parent, false);
+        Image image = root.AddComponent<Image>();
+        image.color = color;
+        image.raycastTarget = true;
+
+        RectTransform rect = root.GetComponent<RectTransform>();
+        rect.anchorMin = Vector2.zero;
+        rect.anchorMax = Vector2.one;
+        rect.offsetMin = Vector2.zero;
+        rect.offsetMax = Vector2.zero;
+
+        VerticalLayoutGroup layout = root.AddComponent<VerticalLayoutGroup>();
+        layout.childAlignment = TextAnchor.UpperCenter;
+        layout.childControlWidth = true;
+        layout.childForceExpandWidth = true;
+        layout.childControlHeight = false;
+        layout.childForceExpandHeight = false;
+        return root;
     }
 
     private static Transform CreateScrollContent(Transform parent, string name, float height)
