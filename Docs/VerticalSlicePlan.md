@@ -23,6 +23,8 @@ Pasar de operador manual a dueno de una fabrica espacial rentable. Al principio 
 - Historia: explica por que existe la fabrica y que esta reparando el jugador.
 - Carga: transicion breve con mensajes de calibracion.
 - Fabrica: HUD, cristal, objetivo activo, acciones, mejoras y pedidos.
+- Bandeja inferior: solo muestra una seccion a la vez mediante pestanas de Mejoras y Pedidos.
+- Incentivo visible: proxima recompensa/sector y cristales faltantes para desbloquearlo.
 - Tienda simulada: packs, Remove Ads y texto de monetizacion responsable.
 - Popup de progreso: recompensa, pedido completado o sector restaurado.
 

@@ -105,6 +105,9 @@ Pivot actual de claridad: **Estacion Aurora**, una fabrica orbital apagada que e
 - Los popups ahora explican pedidos completados, cobros, recompensas diarias, boost por anuncio y sectores restaurados.
 - Misiones renombradas como pedidos de energia para que la tarea tenga sentido dentro de la fantasia de negocio.
 - Etapas renombradas como sectores de Aurora para que el progreso se entienda como restauracion de la estacion.
+- Ajuste de claridad visual posterior a prueba: la bandeja inferior ahora usa pestanas para alternar entre mejoras y pedidos, evitando ventanas superpuestas.
+- Se agrego un panel de incentivo con la proxima recompensa/sector para que el jugador entienda por que seguir produciendo.
+- Botones generados con texto mas fuerte, sombra y colores de accion mas claros.
 
 ### Direccion visual/lore
 

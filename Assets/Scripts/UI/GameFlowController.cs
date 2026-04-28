@@ -30,6 +30,12 @@ public class GameFlowController : MonoBehaviour
     [SerializeField] private Button mediumPackButton;
     [SerializeField] private Button removeAdsButton;
 
+    [Header("Gameplay Tabs")]
+    [SerializeField] private GameObject shopPanelRoot;
+    [SerializeField] private GameObject missionsPanelRoot;
+    [SerializeField] private Button shopTabButton;
+    [SerializeField] private Button missionsTabButton;
+
     private Coroutine loadingRoutine;
 
     private void OnEnable()
@@ -42,6 +48,8 @@ public class GameFlowController : MonoBehaviour
         AddListener(smallPackButton, BuySmallPack);
         AddListener(mediumPackButton, BuyMediumPack);
         AddListener(removeAdsButton, BuyRemoveAds);
+        AddListener(shopTabButton, ShowShopTab);
+        AddListener(missionsTabButton, ShowMissionsTab);
     }
 
     private void Start()
@@ -59,6 +67,8 @@ public class GameFlowController : MonoBehaviour
         RemoveListener(smallPackButton, BuySmallPack);
         RemoveListener(mediumPackButton, BuyMediumPack);
         RemoveListener(removeAdsButton, BuyRemoveAds);
+        RemoveListener(shopTabButton, ShowShopTab);
+        RemoveListener(missionsTabButton, ShowMissionsTab);
     }
 
     private void ShowMainMenu()
@@ -111,7 +121,20 @@ public class GameFlowController : MonoBehaviour
 
         SetActive(loadingRoot, false);
         SetActive(gameplayRoot, true);
+        ShowShopTab();
         loadingRoutine = null;
+    }
+
+    private void ShowShopTab()
+    {
+        SetActive(shopPanelRoot, true);
+        SetActive(missionsPanelRoot, false);
+    }
+
+    private void ShowMissionsTab()
+    {
+        SetActive(shopPanelRoot, false);
+        SetActive(missionsPanelRoot, true);
     }
 
     private void ShowStory()

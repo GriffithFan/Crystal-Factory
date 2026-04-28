@@ -34,17 +34,17 @@ public static class PrototypeSceneBuilder
         GameObject phoneRoot = CreatePhoneRoot(canvas.transform);
         GameObject mainLayout = CreateMainLayout(phoneRoot.transform);
 
-        GameObject topPanel = CreateContainerPanel("TopHudPanel", mainLayout.transform, 276, new Color(0.035f, 0.055f, 0.09f, 0.86f));
-        TMP_Text titleText = CreateText("GameTitleText", topPanel.transform, "ESTACION AURORA", 40, 46, TextAlignmentOptions.Center);
+        GameObject topPanel = CreateContainerPanel("TopHudPanel", mainLayout.transform, 206, new Color(0.025f, 0.045f, 0.07f, 0.9f));
+        TMP_Text titleText = CreateText("GameTitleText", topPanel.transform, "ESTACION AURORA", 34, 40, TextAlignmentOptions.Center);
         titleText.color = new Color(0.72f, 0.96f, 1f);
-        TMP_Text stageTitleText = CreateText("StageTitleText", topPanel.transform, "Sector 1: Nucleo Dormido", 22, 28, TextAlignmentOptions.Center);
-        TMP_Text loreText = CreateText("LoreText", topPanel.transform, "Produce energia, cumple pedidos y restaura sectores para convertir Aurora en negocio.", 18, 48, TextAlignmentOptions.Center);
+        TMP_Text stageTitleText = CreateText("StageTitleText", topPanel.transform, "Sector 1: Nucleo Dormido", 20, 26, TextAlignmentOptions.Center);
+        TMP_Text loreText = CreateText("LoreText", topPanel.transform, "Produce energia, cumple pedidos y restaura sectores.", 17, 36, TextAlignmentOptions.Center);
         loreText.color = new Color(0.85f, 0.9f, 0.96f);
 
-        GameObject statsRow = CreateHorizontalGroup("StatsRow", topPanel.transform, 94);
-        TMP_Text coinsText = CreateMetricBlock("CoinsMetric", statsRow.transform, "CRISTALES", "0", 34);
-        TMP_Text cpsText = CreateMetricBlock("CpsMetric", statsRow.transform, "AUTO", "0/s", 24);
-        TMP_Text clickPowerText = CreateMetricBlock("ClickMetric", statsRow.transform, "TOQUE", "+1", 24);
+        GameObject statsRow = CreateHorizontalGroup("StatsRow", topPanel.transform, 72);
+        TMP_Text coinsText = CreateMetricBlock("CoinsMetric", statsRow.transform, "CRISTALES", "0", 30);
+        TMP_Text cpsText = CreateMetricBlock("CpsMetric", statsRow.transform, "AUTO", "0/s", 22);
+        TMP_Text clickPowerText = CreateMetricBlock("ClickMetric", statsRow.transform, "TOQUE", "+1", 22);
 
         Button crystalButton = CreateCrystalButton(mainLayout.transform);
 
@@ -52,17 +52,30 @@ public static class PrototypeSceneBuilder
         TMP_Text statusText = CreateText("StatusText", statusPanel.transform, "Pedido activo: despierta el nucleo con 10 toques y compra Pulidor Manual", 22, 58, TextAlignmentOptions.Center);
         statusText.color = new Color(1f, 0.9f, 0.48f);
 
+        GameObject incentivePanel = CreateContainerPanel("IncentivePanel", mainLayout.transform, 112, new Color(0.03f, 0.11f, 0.12f, 0.92f));
+        TMP_Text incentiveHeadlineText = CreateText("IncentiveHeadlineText", incentivePanel.transform, "Proxima recompensa: Sector 2", 22, 36, TextAlignmentOptions.Center);
+        incentiveHeadlineText.color = new Color(0.68f, 1f, 0.92f);
+        TMP_Text incentiveProgressText = CreateText("IncentiveProgressText", incentivePanel.transform, "Produce cristales para abrir un nuevo sector de Aurora.", 18, 50, TextAlignmentOptions.Center);
+        incentiveProgressText.color = new Color(0.9f, 0.96f, 1f);
+
         GameObject actionRow = CreateHorizontalGroup("ActionRow", mainLayout.transform, 72);
         Button dailyRewardButton = CreateButton("DailyRewardButton", actionRow.transform, "Recompensa", new Color(0.45f, 0.31f, 0.08f), 20, 72);
         Button rewardedAdButton = CreateButton("RewardedAdButton", actionRow.transform, "Boost x2", new Color(0.08f, 0.35f, 0.25f), 20, 72);
         Button storeButton = CreateButton("OpenStoreButton", actionRow.transform, "Tienda", new Color(0.18f, 0.15f, 0.36f), 20, 72);
 
-        GameObject listsColumn = CreateVerticalGroup("ListsColumn", mainLayout.transform, 820, 12);
-        GameObject shopPanel = CreatePanel("ShopPanel", listsColumn.transform, "MEJORAS", 510);
-        Transform shopContent = CreateScrollContent(shopPanel.transform, "ShopScrollView", 436);
+        GameObject contentTray = CreateContainerPanel("ContentTray", mainLayout.transform, 620, new Color(0.025f, 0.035f, 0.055f, 0.96f));
+        TMP_Text trayTitle = CreateText("TrayTitle", contentTray.transform, "ELIGE TU SIGUIENTE MOVIMIENTO", 20, 34, TextAlignmentOptions.Center);
+        trayTitle.color = new Color(0.9f, 0.96f, 1f);
+        GameObject tabRow = CreateHorizontalGroup("TabRow", contentTray.transform, 64);
+        Button shopTabButton = CreateButton("ShopTabButton", tabRow.transform, "MEJORAS", new Color(0.07f, 0.38f, 0.52f), 18, 64);
+        Button missionsTabButton = CreateButton("MissionsTabButton", tabRow.transform, "PEDIDOS", new Color(0.29f, 0.2f, 0.07f), 18, 64);
 
-        GameObject missionsPanel = CreatePanel("MissionsPanel", listsColumn.transform, "MISIONES", 298);
-        Transform missionsContent = CreateScrollContent(missionsPanel.transform, "MissionsScrollView", 224);
+        GameObject shopPanel = CreatePanel("ShopPanel", contentTray.transform, "Mejoras que aumentan produccion", 474);
+        Transform shopContent = CreateScrollContent(shopPanel.transform, "ShopScrollView", 400);
+
+        GameObject missionsPanel = CreatePanel("MissionsPanel", contentTray.transform, "Pedidos con recompensa", 474);
+        Transform missionsContent = CreateScrollContent(missionsPanel.transform, "MissionsScrollView", 400);
+        missionsPanel.SetActive(false);
 
         UpgradeButtonView upgradePrefab = CreateUpgradeButtonPrefab();
         MissionRowView missionPrefab = CreateMissionRowPrefab();
@@ -95,6 +108,10 @@ public static class PrototypeSceneBuilder
         SetObjectReference(missions, "container", missionsContent);
         SetObjectReference(missions, "missionRowPrefab", missionPrefab);
 
+        ProgressIncentiveController incentive = incentivePanel.AddComponent<ProgressIncentiveController>();
+        SetObjectReference(incentive, "headlineText", incentiveHeadlineText);
+        SetObjectReference(incentive, "progressText", incentiveProgressText);
+
         GameObject mainMenuRoot = CreateMainMenu(canvas.transform, out Button startButton, out Button storyButton);
         GameObject loadingRoot = CreateLoadingScreen(canvas.transform, out TMP_Text loadingText);
         GameObject storyRoot = CreateStoryScreen(canvas.transform, out Button storyBackButton);
@@ -117,6 +134,10 @@ public static class PrototypeSceneBuilder
         SetObjectReference(flow, "smallPackButton", smallPackButton);
         SetObjectReference(flow, "mediumPackButton", mediumPackButton);
         SetObjectReference(flow, "removeAdsButton", removeAdsButton);
+        SetObjectReference(flow, "shopPanelRoot", shopPanel);
+        SetObjectReference(flow, "missionsPanelRoot", missionsPanel);
+        SetObjectReference(flow, "shopTabButton", shopTabButton);
+        SetObjectReference(flow, "missionsTabButton", missionsTabButton);
 
         EditorSceneManager.SaveScene(scene, ScenePath);
         Selection.activeObject = canvas.gameObject;
@@ -400,10 +421,10 @@ public static class PrototypeSceneBuilder
 
     private static TMP_Text CreateMetricBlock(string name, Transform parent, string label, string value, int valueSize)
     {
-        GameObject block = CreateContainerPanel(name, parent, 94, new Color(0.02f, 0.09f, 0.13f, 0.9f));
-        TMP_Text labelText = CreateText("Label", block.transform, label, 13, 22, TextAlignmentOptions.Center);
-        labelText.color = new Color(0.62f, 0.82f, 0.88f);
-        TMP_Text valueText = CreateText("Value", block.transform, value, valueSize, 44, TextAlignmentOptions.Center);
+        GameObject block = CreateContainerPanel(name, parent, 72, new Color(0.015f, 0.075f, 0.1f, 0.94f));
+        TMP_Text labelText = CreateText("Label", block.transform, label, 12, 18, TextAlignmentOptions.Center);
+        labelText.color = new Color(0.62f, 0.86f, 0.9f);
+        TMP_Text valueText = CreateText("Value", block.transform, value, valueSize, 34, TextAlignmentOptions.Center);
         valueText.color = Color.white;
         return valueText;
     }
@@ -652,6 +673,11 @@ public static class PrototypeSceneBuilder
 
         TMP_Text text = CreateText("Label", buttonObject.transform, label, fontSize, height, TextAlignmentOptions.Center);
         text.raycastTarget = false;
+        text.fontStyle = FontStyles.Bold;
+        text.color = new Color(0.97f, 1f, 1f);
+        Shadow textShadow = text.gameObject.AddComponent<Shadow>();
+        textShadow.effectColor = new Color(0f, 0.02f, 0.04f, 0.7f);
+        textShadow.effectDistance = new Vector2(0, -2);
         RectTransform textRect = text.GetComponent<RectTransform>();
         textRect.anchorMin = Vector2.zero;
         textRect.anchorMax = Vector2.one;
